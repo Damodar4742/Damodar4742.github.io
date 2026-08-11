@@ -1,1037 +1,863 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Damodar Gautam | Economist · FIU</title>
-  <meta name="description" content="Damodar Gautam — Ph.D. Student in Economics, Florida International University."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Damodar Gautam | Economist · FIU</title>
+<meta name="description" content="Damodar Gautam — Ph.D. Candidate in Economics, Florida International University. Development, environmental, and applied macroeconomics; causal inference and panel data methods.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================= TOKENS ============================= */
+:root{
+  --bg:#EEF1E9;
+  --bg-soft:#E5E9DE;
+  --surface:#FBFCF9;
+  --surface-2:#F4F6F0;
+  --ink:#182019;
+  --ink-soft:#48564B;
+  --ink-faint:#7C8A7A;
+  --line:#CED6C4;
+  --line-soft:#DEE4D5;
+  --marsh:#2E5245;
+  --marsh-deep:#1B2B24;
+  --marsh-tint:#DCE7DE;
+  --amber:#AD722A;
+  --amber-tint:#F1DFC0;
+  --shadow: 0 1px 2px rgba(20,30,22,0.04), 0 8px 24px -12px rgba(20,30,22,0.12);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  --maxw: 1040px;
+}
+html[data-theme="dark"]{
+  --bg:#101613;
+  --bg-soft:#151C18;
+  --surface:#171F1A;
+  --surface-2:#1C251F;
+  --ink:#E9EDE5;
+  --ink-soft:#AAB6A4;
+  --ink-faint:#6C7A6B;
+  --line:#2A362D;
+  --line-soft:#232E27;
+  --marsh:#7FB89A;
+  --marsh-deep:#A9D3B8;
+  --marsh-tint:#1D2B23;
+  --amber:#E0A25C;
+  --amber-tint:#2C2417;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px -16px rgba(0,0,0,0.5);
+}
 
-    /* ═══════════════════════════════════════
-       LIGHT  — Oxford blue · sky blue · pale
-    ═══════════════════════════════════════ */
-    :root,[data-theme="light"]{
-      --bg:          #f0f4f8;
-      --bg2:         #e8eef5;
-      --surface:     #ffffff;
-      --surface2:    #f4f7fa;
-      --border:      #d1dbe8;
-      --border2:     #b8cade;
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  transition:background .35s ease, color .35s ease;
+}
+h1,h2,h3,h4{
+  font-family:var(--serif);
+  font-weight:500;
+  color:var(--ink);
+  margin:0;
+  letter-spacing:-0.01em;
+}
+p{margin:0;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
 
-      --ink:         #0d1b2a;
-      --ink2:        #2c3e52;
-      --muted:       #5a6f82;
-      --faint:       #8fa4b8;
+/* ============================= EYEBROW / MONO TAGS ============================= */
+.eyebrow{
+  font-family:var(--mono);
+  font-size:12.5px;
+  letter-spacing:0.06em;
+  color:var(--marsh);
+  text-transform:lowercase;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:10px;
+}
+.eyebrow::before{content:"§";opacity:.6;font-family:var(--mono);}
+.tag{
+  font-family:var(--mono);
+  font-size:12px;
+  padding:4px 10px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:var(--ink-soft);
+  background:var(--surface);
+  white-space:nowrap;
+}
 
-      --accent:      #1e3a5f;        /* Oxford blue */
-      --accent-mid:  #2e6da4;        /* mid blue    */
-      --accent-hi:   #4a90d9;        /* sky blue    */
-      --accent-dim:  rgba(74,144,217,.10);
-      --accent-h:    rgba(74,144,217,.18);
+/* ============================= NAV ============================= */
+header.site-nav{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter:saturate(160%) blur(10px);
+  background:color-mix(in srgb, var(--bg) 82%, transparent);
+  border-bottom:1px solid var(--line-soft);
+}
+.nav-inner{
+  max-width:var(--maxw); margin:0 auto; padding:14px 28px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+}
+.nav-brand{
+  font-family:var(--mono); font-size:13px; letter-spacing:.02em; color:var(--ink);
+  display:flex; align-items:baseline; gap:8px;
+}
+.nav-brand strong{font-family:var(--serif); font-size:17px; font-weight:600;}
+.nav-brand span{color:var(--ink-faint); font-size:12px;}
+nav.nav-links{display:flex; align-items:center; gap:2px;}
+nav.nav-links a{
+  font-size:13.5px; padding:8px 12px; border-radius:8px; color:var(--ink-soft);
+  transition:background .2s, color .2s;
+}
+nav.nav-links a:hover, nav.nav-links a.active{background:var(--surface-2); color:var(--marsh);}
+.nav-right{display:flex; align-items:center; gap:10px;}
+.theme-btn{
+  width:34px;height:34px;border-radius:999px;border:1px solid var(--line);
+  background:var(--surface); color:var(--ink-soft); cursor:pointer;
+  display:flex; align-items:center; justify-content:center; font-size:14px;
+  transition:background .2s, transform .2s;
+}
+.theme-btn:hover{background:var(--surface-2);}
+.nav-toggle{display:none; background:none; border:1px solid var(--line); border-radius:8px; width:36px;height:36px; color:var(--ink); cursor:pointer;}
+@media (max-width:840px){
+  nav.nav-links{
+    position:absolute; top:100%; left:0; right:0; background:var(--bg);
+    flex-direction:column; align-items:stretch; padding:8px; border-bottom:1px solid var(--line-soft);
+    display:none;
+  }
+  nav.nav-links.open{display:flex;}
+  nav.nav-links a{padding:12px 14px;}
+  .nav-toggle{display:flex; align-items:center; justify-content:center;}
+}
 
-      --gold:        #7a4f1a;
-      --gold-bg:     #fef3e2;
-      --gold-bdr:    #f5c97a;
+/* ============================= HERO ============================= */
+.hero{padding:76px 0 40px;}
+.hero-grid{display:grid; grid-template-columns:1.35fr 1fr; gap:56px; align-items:center;}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr; gap:40px;}}
+.hero-kicker{
+  font-family:var(--mono); font-size:13px; color:var(--marsh); letter-spacing:.04em;
+  display:flex; align-items:center; gap:10px; margin-bottom:18px;
+}
+.hero-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);}
+h1.hero-name{font-size:clamp(2.4rem,5vw,3.4rem); line-height:1.05;}
+.hero-role{font-size:1.15rem; color:var(--ink-soft); margin-top:10px; font-family:var(--serif); font-style:italic;}
+.hero-bio{margin-top:22px; font-size:15.5px; color:var(--ink-soft); max-width:56ch;}
+.hero-bio strong{color:var(--ink); font-weight:600;}
+.hero-links{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px;}
+.pill-link{
+  display:inline-flex; align-items:center; gap:7px;
+  font-size:13.5px; padding:9px 16px; border-radius:999px;
+  border:1px solid var(--line); background:var(--surface); color:var(--ink);
+  transition:border-color .2s, transform .15s, background .2s;
+}
+.pill-link:hover{border-color:var(--marsh); transform:translateY(-1px);}
+.pill-link.primary{background:var(--marsh); color:#F4F7F1; border-color:var(--marsh);}
+html[data-theme="dark"] .pill-link.primary{color:#0E1613;}
+.pill-link.primary:hover{background:var(--marsh-deep);}
 
-      --emerald:     #145c38;
-      --emerald-bg:  #e8f8ef;
-      --emerald-bdr: #6dcf9a;
+.hero-visual{display:flex; flex-direction:column; align-items:center; gap:18px;}
+.portrait{
+  width:200px;height:200px;border-radius:50%;
+  overflow:hidden; border:1px solid var(--line);
+  box-shadow:var(--shadow); background:var(--surface-2);
+}
+.portrait img{width:100%;height:100%;object-fit:cover;}
+.chart-card{
+  width:100%; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  padding:16px 18px 14px; box-shadow:var(--shadow);
+}
+.chart-card .cc-label{font-family:var(--mono); font-size:10.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px;}
+.chart-card svg{width:100%; height:auto; display:block;}
 
-      --rose:        #8b1a1a;
-      --rose-bg:     #fdeaea;
-      --rose-bdr:    #f4a0a0;
+/* stat strip */
+.stats{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+  margin-top:52px; border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft);
+}
+.stat{padding:20px 10px; text-align:center; border-left:1px solid var(--line-soft);}
+.stat:first-child{border-left:none;}
+.stat .num{font-family:var(--serif); font-size:1.8rem; font-weight:600; color:var(--marsh);}
+.stat .lbl{font-family:var(--mono); font-size:11px; color:var(--ink-faint); text-transform:lowercase; margin-top:2px;}
+@media (max-width:460px){
+  .stats{grid-template-columns:repeat(2,1fr);}
+  .stat:nth-child(3){border-left:none;}
+}
 
-      --tag-bg:      #deeaf7;
-      --tag-bdr:     #aac8e8;
-      --tag-txt:     #1e3a5f;
+/* ============================= DIVIDER (hydrograph) ============================= */
+.hydro-divider{padding:34px 0; overflow:hidden;}
+.hydro-divider svg{width:100%; height:34px; display:block;}
+.hydro-divider path.flow{fill:none; stroke:var(--line); stroke-width:1.4;}
+.hydro-divider path.flow.accent{stroke:var(--amber); opacity:.55;}
 
-      --serif: 'Lora',Georgia,serif;
-      --sans:  'Inter',sans-serif;
-      --mono:  'JetBrains Mono',monospace;
-      --r:     8px;
-      --sh:    0 1px 3px rgba(30,58,95,.07), 0 4px 14px rgba(30,58,95,.06);
-      --sh-h:  0 4px 18px rgba(30,58,95,.12), 0 14px 36px rgba(30,58,95,.09);
-      --nav-bg:rgba(240,244,248,.95);
-      --wp-bar:    linear-gradient(to bottom,#c9a84c,#a07830);
-      --pub-bar:   linear-gradient(to bottom,#3a9e6e,#1d7a50);
-    }
+/* ============================= SECTION SCAFFOLD ============================= */
+section{padding:64px 0;}
+.section-head{margin-bottom:34px; max-width:64ch;}
+.section-head h2{font-size:1.9rem;}
+.section-head .desc{color:var(--ink-soft); margin-top:10px; font-size:14.5px;}
+.reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease;}
+.reveal.in-view{opacity:1; transform:translateY(0);}
 
-    /* ═══════════════════════════════════════
-       DARK  — true black · crisp white fonts
-    ═══════════════════════════════════════ */
-    [data-theme="dark"]{
-      --bg:          #000000;
-      --bg2:         #0a0a0a;
-      --surface:     #111111;
-      --surface2:    #1a1a1a;
-      --border:      #2e2e2e;
-      --border2:     #404040;
+/* research field chips */
+.field-cloud{display:flex; flex-wrap:wrap; gap:9px;}
+.field-cloud .tag{padding:7px 14px; font-size:12.5px;}
 
-      --ink:         #ffffff;       /* headings, titles          */
-      --ink2:        #e2e2e2;       /* body text, descriptions   */
-      --muted:       #c0c0c0;       /* authors, institutions     */
-      --faint:       #909090;       /* years, labels, meta       */
+/* subsection label */
+.subhead{
+  display:flex; align-items:baseline; justify-content:space-between; gap:14px;
+  margin:44px 0 20px; padding-bottom:10px; border-bottom:1px solid var(--line-soft);
+}
+.subhead h3{font-size:1.25rem;}
+.subhead .count{font-family:var(--mono); font-size:12px; color:var(--ink-faint);}
 
-      --accent:      #90c4f8;
-      --accent-mid:  #70b0f5;       /* links, nav items          */
-      --accent-hi:   #a8d4ff;
-      --accent-dim:  rgba(112,176,245,.14);
-      --accent-h:    rgba(112,176,245,.24);
+/* ============================= PAPER CARDS ============================= */
+.paper-list{display:flex; flex-direction:column; gap:14px;}
+.paper{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  padding:22px 24px; transition:border-color .2s, box-shadow .2s;
+}
+.paper:hover{border-color:var(--marsh); box-shadow:var(--shadow);}
+.paper-top{display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap;}
+.paper-meta-row{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+.status{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.04em; text-transform:uppercase;
+  padding:3px 9px; border-radius:5px; border:1px solid var(--line);
+}
+.status.published{background:var(--marsh-tint); color:var(--marsh); border-color:transparent;}
+.status.working{color:var(--marsh); border-color:var(--marsh);}
+.status.review{color:var(--amber); border-color:var(--amber); background:var(--amber-tint);}
+.status.prep{color:var(--ink-faint); border-style:dashed;}
+.paper-year{font-family:var(--mono); font-size:12px; color:var(--ink-faint);}
+.paper h4{font-size:1.15rem; margin-top:12px; line-height:1.35; font-weight:500;}
+.paper .authors{font-size:13.5px; color:var(--ink-soft); margin-top:6px;}
+.paper .authors em{font-style:italic; color:var(--ink); font-weight:500;}
+.paper .journal{font-family:var(--mono); font-size:12px; color:var(--ink-faint); margin-top:8px;}
+.paper .field-tags{display:flex; gap:6px; flex-wrap:wrap; margin-top:12px;}
+.paper .field-tags .tag{font-size:11px; padding:3px 9px;}
 
-      --gold:        #fcd34d;        /* WP badge text — bright    */
-      --gold-bg:     rgba(252,211,77,.13);
-      --gold-bdr:    rgba(252,211,77,.38);
+details.abstract{margin-top:14px;}
+details.abstract summary{
+  cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--mono); font-size:12px; color:var(--marsh); user-select:none;
+}
+details.abstract summary::-webkit-details-marker{display:none;}
+details.abstract summary::before{
+  content:"▸"; display:inline-block; transition:transform .2s ease; font-size:10px;
+}
+details.abstract[open] summary::before{transform:rotate(90deg);}
+details.abstract .abs-body{
+  margin-top:10px; font-size:13.8px; color:var(--ink-soft); line-height:1.65; max-width:74ch;
+  padding-left:14px; border-left:2px solid var(--line-soft);
+}
+.paper-links{display:flex; gap:14px; flex-wrap:wrap; margin-top:14px;}
+.paper-links a{
+  font-family:var(--mono); font-size:12px; color:var(--ink); border-bottom:1px solid var(--line);
+  padding-bottom:1px; transition:border-color .2s, color .2s;
+}
+.paper-links a:hover{color:var(--marsh); border-color:var(--marsh);}
 
-      --emerald:     #6ee7a0;        /* pub badge text — bright   */
-      --emerald-bg:  rgba(110,231,160,.12);
-      --emerald-bdr: rgba(110,231,160,.36);
+.subitems{margin-top:12px; padding-left:14px; border-left:2px solid var(--line-soft); display:flex; flex-direction:column; gap:8px;}
+.subitems .sub{font-size:13px; color:var(--ink-soft);}
+.subitems .sub .si-title{color:var(--ink);}
+.subitems .sub .si-meta{font-family:var(--mono); font-size:11.5px; color:var(--ink-faint); display:block; margin-top:2px;}
 
-      --rose:        #fca5a5;        /* under review — bright     */
-      --rose-bg:     rgba(252,165,165,.12);
-      --rose-bdr:    rgba(252,165,165,.36);
+/* ongoing projects */
+.project-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+@media (max-width:760px){.project-grid{grid-template-columns:1fr;}}
+.project-card{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-sm);
+  padding:16px 18px; font-size:13.6px; color:var(--ink-soft); display:flex; gap:12px;
+}
+.project-card .idx{font-family:var(--mono); font-size:11px; color:var(--amber); flex-shrink:0; padding-top:2px;}
 
-      --tag-bg:      rgba(112,176,245,.13);
-      --tag-bdr:     rgba(112,176,245,.32);
-      --tag-txt:     #a8d4ff;        /* field tags — bright blue  */
+/* ============================= TIMELINE (experience) ============================= */
+.timeline{position:relative; padding-left:26px;}
+.timeline::before{content:""; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--line);}
+.tl-item{position:relative; padding-bottom:34px;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-item::before{
+  content:""; position:absolute; left:-26px; top:5px; width:11px; height:11px; border-radius:50%;
+  background:var(--surface); border:2px solid var(--marsh);
+}
+.tl-item .tl-date{font-family:var(--mono); font-size:11.5px; color:var(--amber); letter-spacing:.02em;}
+.tl-item h4{font-size:1.08rem; margin-top:6px; font-weight:500;}
+.tl-item .tl-org{font-size:13.5px; color:var(--ink-soft); margin-top:3px;}
+.tl-item .tl-desc{font-size:13.6px; color:var(--ink-soft); margin-top:8px; max-width:64ch; line-height:1.6;}
 
-      --sh:    0 2px 12px rgba(0,0,0,.6), 0 6px 24px rgba(0,0,0,.4);
-      --sh-h:  0 6px 28px rgba(0,0,0,.8), 0 16px 48px rgba(0,0,0,.6);
-      --nav-bg:rgba(0,0,0,.96);
-      --wp-bar:    linear-gradient(to bottom,#fcd34d,#f59e0b);
-      --pub-bar:   linear-gradient(to bottom,#6ee7a0,#10b981);
-    }
+/* education cards */
+.edu-grid{display:flex; flex-direction:column; gap:0;}
+.edu-item{
+  display:grid; grid-template-columns:120px 1fr; gap:18px;
+  padding:20px 0; border-top:1px solid var(--line-soft);
+}
+.edu-item:first-child{border-top:none;}
+.edu-item .edu-years{font-family:var(--mono); font-size:12px; color:var(--ink-faint); padding-top:3px;}
+.edu-item h4{font-size:1.08rem; font-weight:500;}
+.edu-item .edu-school{font-size:13.5px; color:var(--ink-soft); margin-top:4px;}
+.edu-item .edu-detail{font-family:var(--mono); font-size:11.8px; color:var(--marsh); margin-top:6px;}
+@media (max-width:560px){.edu-item{grid-template-columns:1fr; gap:6px;}}
 
-    /* ── BASE ── */
-    html{scroll-behavior:smooth}
-    body{
-      font-family:var(--sans);font-size:15.5px;
-      color:var(--ink);background:var(--bg);line-height:1.72;
-      transition:background .3s,color .3s;
-    }
-    a{color:var(--accent-mid);text-decoration:none}
-    a:hover{text-decoration:underline}
+/* honors / affiliations / certifications */
+.badge-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+@media (max-width:700px){.badge-grid{grid-template-columns:1fr;}}
+.badge{
+  display:flex; gap:14px; align-items:flex-start; background:var(--surface);
+  border:1px solid var(--line); border-radius:var(--radius-sm); padding:15px 17px;
+}
+.badge .bicon{font-size:20px; line-height:1; flex-shrink:0; margin-top:1px;}
+.badge .btitle{font-size:13.8px; color:var(--ink); font-weight:500;}
+.badge .bmeta{font-family:var(--mono); font-size:11.5px; color:var(--ink-faint); margin-top:4px;}
 
-    /* ── NAV ── */
-    nav{
-      position:sticky;top:0;z-index:200;
-      background:var(--nav-bg);
-      backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-      border-bottom:1px solid var(--border);
-      padding:0 2.5rem;height:56px;
-      display:flex;align-items:center;justify-content:space-between;
-      transition:background .3s,border-color .3s;
-    }
-    /* Oxford-blue top stripe in light mode */
-    [data-theme="light"] nav{border-top:3px solid #1e3a5f;height:59px}
+.skills-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:26px;}
+@media (max-width:700px){.skills-grid{grid-template-columns:1fr;}}
+.skill-group .sg-title{font-family:var(--mono); font-size:11.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--marsh); margin-bottom:10px;}
+.skill-group .field-cloud .tag{background:var(--surface-2);}
 
-    .nav-brand{display:flex;align-items:baseline;gap:.65rem;text-decoration:none}
-    .nav-name{
-      font-family:var(--serif);font-size:17px;font-weight:600;
-      color:var(--ink);letter-spacing:-.01em;
-    }
-    .nav-pill{
-      font-family:var(--mono);font-size:10px;color:var(--muted);
-      letter-spacing:.05em;background:var(--tag-bg);
-      border:1px solid var(--tag-bdr);border-radius:4px;padding:1px 7px;
-    }
-    .nav-r{display:flex;align-items:center;gap:1.75rem}
-    .nav-links{display:flex;gap:1.75rem;list-style:none}
-    .nav-links a{font-size:13px;font-weight:500;color:var(--muted);transition:color .15s}
-    .nav-links a:hover{color:var(--ink);text-decoration:none}
+/* ============================= CONTACT ============================= */
+.contact-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+@media (max-width:760px){.contact-grid{grid-template-columns:1fr 1fr;}}
+@media (max-width:480px){.contact-grid{grid-template-columns:1fr;}}
+.contact-card{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-sm);
+  padding:18px; transition:border-color .2s, transform .15s;
+}
+.contact-card:hover{border-color:var(--marsh); transform:translateY(-2px);}
+.contact-card .cicon{font-size:18px;}
+.contact-card .clabel{font-family:var(--mono); font-size:11px; text-transform:uppercase; color:var(--ink-faint); margin-top:10px; letter-spacing:.04em;}
+.contact-card .cvalue{font-size:14px; color:var(--ink); margin-top:5px; word-break:break-word;}
 
-    .tbtn{
-      display:flex;align-items:center;gap:6px;
-      background:var(--surface2);border:1px solid var(--border2);
-      border-radius:20px;padding:4px 13px;cursor:pointer;
-      font-family:var(--mono);font-size:10.5px;color:var(--muted);
-      letter-spacing:.04em;transition:all .2s;white-space:nowrap;
-    }
-    .tbtn:hover{color:var(--ink);border-color:var(--accent-mid)}
-
-    /* ── LAYOUT ── */
-    .wrap{max-width:1100px;margin:0 auto;padding:3.5rem 3rem}
-
-    /* ── HERO ── */
-    .hero{
-      display:grid;grid-template-columns:1fr 180px;
-      gap:3.5rem;align-items:start;
-      padding-bottom:3rem;border-bottom:1px solid var(--border);
-      margin-bottom:3rem;
-      animation:up .6s cubic-bezier(.22,1,.36,1) both;
-    }
-    @keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-
-    h1{
-      font-family:var(--serif);font-size:2.6rem;font-weight:700;
-      line-height:1.12;letter-spacing:-.02em;margin-bottom:.35rem;
-      color:var(--ink);
-    }
-    [data-theme="light"] h1{color:#1e3a5f}
-
-    .hero-pos{font-size:14px;font-weight:600;color:var(--accent-mid);margin-bottom:.12rem}
-    .hero-inst{font-size:13.5px;color:var(--muted);margin-bottom:1.35rem}
-    .bio{font-size:14.5px;color:var(--ink2);line-height:1.84;margin-bottom:1.5rem}
-    .bio strong{color:var(--ink);font-weight:600}
-
-    .socials{display:flex;flex-wrap:wrap;gap:.5rem}
-    .socials a{
-      display:inline-flex;align-items:center;gap:5px;
-      font-size:12.5px;font-weight:500;color:var(--accent-mid);
-      border:1px solid var(--tag-bdr);border-radius:20px;
-      padding:5px 14px;background:var(--accent-dim);
-      transition:background .15s,transform .12s,border-color .15s;
-    }
-    .socials a:hover{background:var(--accent-h);border-color:var(--accent-mid);transform:translateY(-1px);text-decoration:none}
-
-    .photo-wrap{margin-top:.5rem}
-    .photo-wrap img{
-      width:170px;height:210px;object-fit:cover;
-      border-radius:var(--r);border:2px solid var(--border2);
-      box-shadow:var(--sh);display:block;
-    }
-    [data-theme="light"] .photo-wrap img{border-color:#1e3a5f}
-    .photo-ph{
-      width:170px;height:210px;border-radius:var(--r);
-      border:2px dashed var(--border);background:var(--surface2);
-      display:flex;flex-direction:column;align-items:center;
-      justify-content:center;color:var(--faint);font-size:12px;gap:8px;
-    }
-
-    /* ── STATS ── */
-    .stats{
-      display:flex;background:var(--surface);
-      border:1px solid var(--border);border-radius:var(--r);
-      margin-bottom:2.75rem;box-shadow:var(--sh);overflow:hidden;
-      animation:up .6s cubic-bezier(.22,1,.36,1) .07s both;
-    }
-    [data-theme="light"] .stats{border-top:3px solid #1e3a5f}
-    .st{flex:1;padding:1.15rem .5rem;text-align:center;border-right:1px solid var(--border);transition:background .2s}
-    .st:last-child{border-right:none}
-    .st:hover{background:var(--surface2)}
-    .st-n{font-family:var(--serif);font-size:1.9rem;font-weight:700;color:var(--accent-mid);line-height:1}
-    [data-theme="light"] .st-n{color:#1e3a5f}
-    .st-l{font-size:10px;color:var(--faint);text-transform:uppercase;letter-spacing:.07em;font-family:var(--mono);margin-top:3px}
-
-    /* ── SECTIONS ── */
-    section{margin-bottom:3rem;animation:up .6s cubic-bezier(.22,1,.36,1) .12s both}
-    .sec-hd{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
-    .sec-title{
-      font-family:var(--serif);font-size:1.35rem;font-weight:600;
-      color:var(--ink);white-space:nowrap;
-    }
-    [data-theme="light"] .sec-title{color:#1e3a5f}
-    .sec-rule{flex:1;height:1px;background:var(--border)}
-    [data-theme="light"] .sec-rule{background:linear-gradient(to right,#aac8e8,transparent)}
-    .sec-ct{font-family:var(--mono);font-size:11px;color:var(--faint);white-space:nowrap}
-
-    /* ── FIELD TAGS ── */
-    .tags{display:flex;flex-wrap:wrap;gap:.45rem}
-    .tag{
-      font-size:12.5px;font-weight:500;
-      background:var(--tag-bg);border:1px solid var(--tag-bdr);
-      border-radius:5px;padding:4px 13px;color:var(--tag-txt);
-      transition:background .15s;
-    }
-    .tag:hover{background:var(--accent-h)}
-
-    /* ── PAPER CARDS ── */
-    .papers{display:flex;flex-direction:column;gap:1rem}
-    .card{
-      background:var(--surface);border:1px solid var(--border);
-      border-radius:var(--r);padding:1.35rem 1.6rem;
-      box-shadow:var(--sh);position:relative;overflow:hidden;
-      transition:box-shadow .22s,transform .22s,border-color .22s,background .3s;
-    }
-    .card::before{
-      content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-      opacity:0;transition:opacity .22s;
-    }
-    .card:hover{box-shadow:var(--sh-h);transform:translateY(-2px)}
-    [data-theme="light"] .card:hover{border-color:#aac8e8}
-    [data-theme="dark"]  .card:hover{border-color:#404040;background:#161616}
-    [data-theme="dark"] .card-title{color:#ffffff}
-    [data-theme="dark"] .card-authors{color:#c0c0c0}
-    [data-theme="dark"] .card-journal{color:#909090}
-    [data-theme="dark"] .abstract{color:#e2e2e2}
-    [data-theme="dark"] .exp-role{color:#ffffff}
-    [data-theme="dark"] .exp-org{color:#90c4f8}
-    [data-theme="dark"] .exp-desc{color:#e2e2e2}
-    [data-theme="dark"] .exp-desc em{color:#e2e2e2}
-    [data-theme="dark"] .edu-deg{color:#ffffff}
-    [data-theme="dark"] .edu-school{color:#c0c0c0}
-    [data-theme="dark"] .edu-yr{color:#909090}
-    [data-theme="dark"] .hon-text{color:#e2e2e2}
-    [data-theme="dark"] .hon-text strong{color:#ffffff}
-    [data-theme="dark"] .proj-text{color:#e2e2e2}
-    [data-theme="dark"] .skill-block{background:#111111;border-color:#2e2e2e}
-    [data-theme="dark"] .skill-title{color:#90c4f8;font-weight:600;border-bottom-color:#2e2e2e}
-    [data-theme="dark"] .skill-tags .s-tag{color:#f0f0f0;background:#1e1e1e;border-color:#3a3a3a;font-weight:500}
-    [data-theme="dark"] .skill-tags .s-tag:hover{background:rgba(112,176,245,.18);border-color:#70b0f5}
-    [data-theme="dark"] .aff{color:#e2e2e2}
-    [data-theme="dark"] .c-val{color:#e2e2e2}
-    [data-theme="dark"] .c-label{color:#909090}
-    [data-theme="dark"] .st-l{color:#909090}
-    [data-theme="dark"] .st-n{color:#90c4f8}
-    [data-theme="dark"] .sec-ct{color:#909090}
-    [data-theme="dark"] .bio{color:#e2e2e2}
-    [data-theme="dark"] .nav-links a{color:#c0c0c0}
-    [data-theme="dark"] .nav-links a:hover{color:#ffffff}
-    [data-theme="dark"] .hero-inst{color:#c0c0c0}
-    [data-theme="dark"] .b-yr{color:#909090}
-    [data-theme="dark"] footer{color:#808080}
-    [data-theme="dark"] .tbtn{color:#c0c0c0}
-    [data-theme="dark"] .nav-pill{color:#c0c0c0}
-    [data-theme="dark"] .exp-period{color:#a8d4ff}
-    [data-theme="dark"] .abs-btn{color:#90c4f8}
-    [data-theme="dark"] .hero-pos{color:#90c4f8}
-    .card:hover::before{opacity:1}
-    .card.wp::before {background:var(--wp-bar)}
-    .card.pub::before{background:var(--pub-bar)}
-
-    .meta{display:flex;align-items:center;gap:.45rem;margin-bottom:.55rem;flex-wrap:wrap}
-    .badge{
-      font-family:var(--mono);font-size:9.5px;font-weight:500;
-      letter-spacing:.07em;text-transform:uppercase;padding:2px 8px;border-radius:4px;
-    }
-    .b-wp {background:var(--gold-bg);   color:var(--gold);    border:1px solid var(--gold-bdr)}
-    .b-pub{background:var(--emerald-bg);color:var(--emerald);border:1px solid var(--emerald-bdr)}
-    .b-rev{background:var(--rose-bg);   color:var(--rose);    border:1px solid var(--rose-bdr)}
-    .b-yr {font-family:var(--mono);font-size:11px;color:var(--faint)}
-    .b-field{
-      font-size:10.5px;padding:1px 8px;border-radius:4px;
-      background:var(--tag-bg);border:1px solid var(--tag-bdr);
-      color:var(--tag-txt);font-weight:500;
-    }
-
-    .card-title{
-      font-family:var(--serif);font-size:1.02rem;font-weight:600;
-      color:var(--ink);line-height:1.44;margin-bottom:.26rem;
-    }
-    [data-theme="light"] .card-title{color:#1e3a5f}
-    .card-authors{font-size:13px;color:var(--muted);margin-bottom:.2rem}
-    .card-authors em{font-style:normal;font-weight:600;color:var(--ink2)}
-    .card-journal{font-size:12.5px;color:var(--faint);font-style:italic;margin-bottom:.7rem}
-
-    .abs-btn{
-      background:none;border:none;padding:0;font-family:var(--sans);
-      font-size:12.5px;color:var(--accent-mid);cursor:pointer;
-      display:inline-flex;align-items:center;gap:4px;transition:color .15s;
-    }
-    .abs-btn:hover{text-decoration:underline}
-    .chev{display:inline-block;transition:transform .22s}
-    .abs-btn.open .chev{transform:rotate(180deg)}
-
-    .abstract{
-      display:none;font-size:13px;color:var(--ink2);
-      line-height:1.8;margin-top:.6rem;margin-bottom:.7rem;
-      border-left:3px solid var(--tag-bdr);padding-left:1rem;
-    }
-    .abstract.open{display:block;animation:fd .22s ease}
-    @keyframes fd{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
-
-    .lnks{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem}
-    .lnks a{
-      font-size:12px;font-weight:500;color:var(--accent-mid);
-      border:1px solid var(--tag-bdr);border-radius:5px;
-      padding:3px 11px;background:var(--accent-dim);
-      display:inline-flex;align-items:center;gap:4px;
-      transition:background .15s,border-color .15s;
-    }
-    .lnks a:hover{background:var(--accent-h);border-color:var(--accent-mid);text-decoration:none}
-    .lnks a.doi{
-      color:var(--gold);border-color:var(--gold-bdr);background:var(--gold-bg);
-    }
-    .lnks a.doi:hover{background:rgba(240,180,41,.2)}
-
-    /* ── EXPERIENCE ── */
-    .exp-list{display:flex;flex-direction:column;gap:1.1rem}
-    .exp-item{
-      background:var(--surface);border:1px solid var(--border);
-      border-radius:var(--r);padding:1.2rem 1.5rem;box-shadow:var(--sh);
-      border-left:3px solid var(--accent-hi);
-      transition:border-left-color .2s,box-shadow .2s;
-    }
-    [data-theme="light"] .exp-item{border-left-color:#4a90d9}
-    .exp-item:hover{border-left-color:var(--accent-mid);box-shadow:var(--sh-h)}
-    .exp-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:.3rem}
-    .exp-role{font-size:15px;font-weight:600;color:var(--ink)}
-    [data-theme="light"] .exp-role{color:#1e3a5f}
-    .exp-period{
-      font-family:var(--mono);font-size:11px;color:var(--tag-txt);
-      background:var(--tag-bg);border:1px solid var(--tag-bdr);
-      border-radius:4px;padding:2px 9px;white-space:nowrap;
-    }
-    .exp-org{font-size:13px;color:var(--accent-mid);font-style:italic;margin-bottom:.5rem}
-    .exp-desc{font-size:13.5px;color:var(--ink2);line-height:1.72}
-    .exp-desc em{font-style:italic}
-
-    /* ── RESEARCH PROJECTS ── */
-    .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.85rem}
-    .proj-card{
-      background:var(--surface);border:1px solid var(--border);
-      border-radius:var(--r);padding:1rem 1.15rem;box-shadow:var(--sh);
-      display:flex;gap:.75rem;align-items:flex-start;
-      transition:border-color .2s,box-shadow .2s,transform .2s;
-    }
-    .proj-card:hover{border-color:var(--accent-hi);box-shadow:var(--sh-h);transform:translateY(-1px)}
-    .proj-dot{
-      width:7px;height:7px;border-radius:50%;
-      background:var(--accent-hi);flex-shrink:0;margin-top:6px;
-    }
-    [data-theme="light"] .proj-dot{background:#4a90d9}
-    .proj-text{font-size:13px;color:var(--ink2);line-height:1.62}
-
-    /* ── EDUCATION ── */
-    .edu-list{display:flex;flex-direction:column}
-    .edu-item{
-      display:grid;grid-template-columns:36px 1fr;
-      gap:0 .75rem;padding:1rem 0;border-bottom:1px solid var(--border);
-    }
-    .edu-item:last-child{border-bottom:none}
-    .edu-dc{display:flex;flex-direction:column;align-items:center;padding-top:5px}
-    .edu-dot{width:11px;height:11px;border-radius:50%;background:var(--accent-mid);flex-shrink:0}
-    [data-theme="light"] .edu-dot{background:#1e3a5f}
-    .edu-dot.past{background:var(--faint)}
-    .edu-line{flex:1;width:1.5px;background:var(--border);margin-top:6px}
-    .edu-item:last-child .edu-line{display:none}
-    .edu-deg{font-size:14.5px;font-weight:600;color:var(--ink);margin-bottom:.08rem}
-    [data-theme="light"] .edu-deg{color:#1e3a5f}
-    .edu-school{font-size:13px;color:var(--muted)}
-    .edu-yr{font-family:var(--mono);font-size:11.5px;color:var(--faint)}
-
-    /* ── HONORS ── */
-    .honors-list{display:flex;flex-direction:column;gap:.65rem}
-    .honor{
-      display:flex;gap:.75rem;align-items:flex-start;
-      padding:.75rem 1rem;background:var(--surface);
-      border:1px solid var(--border);border-radius:var(--r);
-      box-shadow:var(--sh);
-    }
-    .hon-icon{font-size:16px;flex-shrink:0;margin-top:1px}
-    .hon-text{font-size:13.5px;color:var(--ink2);line-height:1.6}
-    .hon-text strong{color:var(--ink);font-weight:600}
-    [data-theme="light"] .hon-text strong{color:#1e3a5f}
-
-    /* ── SKILLS ── */
-    .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
-    .skill-block{
-      background:var(--surface);border:1px solid var(--border);
-      border-radius:var(--r);padding:1.1rem 1.25rem;box-shadow:var(--sh);
-    }
-    .skill-title{
-      font-size:13.5px;font-weight:600;
-      letter-spacing:.01em;color:var(--accent-mid);
-      font-family:var(--serif);font-style:italic;
-      margin-bottom:.75rem;border-bottom:1px solid var(--border);
-      padding-bottom:.5rem;
-    }
-    [data-theme="light"] .skill-title{color:#1e3a5f}
-    .skill-tags{display:flex;flex-wrap:wrap;gap:.45rem}
-    .s-tag{
-      font-size:12.5px;font-weight:500;
-      background:var(--surface2);border:1px solid var(--border);
-      border-radius:5px;padding:4px 12px;color:var(--ink2);
-      font-family:var(--sans);letter-spacing:.01em;
-      transition:background .15s,border-color .15s;
-    }
-    .s-tag:hover{background:var(--accent-dim);border-color:var(--accent-hi)}
-
-    /* ── AFFILIATIONS ── */
-    .aff-list{display:flex;flex-direction:column;gap:.65rem}
-    .aff{
-      display:flex;gap:.75rem;align-items:flex-start;
-      font-size:13.5px;color:var(--ink2);
-      padding:.75rem 1rem;background:var(--surface);
-      border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh);
-    }
-    .aff-icon{font-size:15px;flex-shrink:0;margin-top:1px}
-
-    /* ── CONTACT ── */
-    .contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.9rem}
-    .c-card{
-      background:var(--surface);border:1px solid var(--border);
-      border-radius:var(--r);padding:1rem 1.25rem;
-      display:flex;align-items:flex-start;gap:.7rem;
-      box-shadow:var(--sh);transition:border-color .2s,box-shadow .2s;
-    }
-    .c-card:hover{border-color:var(--accent-mid);box-shadow:var(--sh-h)}
-    .c-icon{font-size:18px;margin-top:2px}
-    .c-label{font-size:10.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.07em;font-family:var(--mono);margin-bottom:.18rem}
-    .c-val{font-size:13.5px;color:var(--ink2)}
-    .c-val a{color:var(--accent-mid)}
-
-    /* ── FOOTER ── */
-    footer{
-      border-top:1px solid var(--border);padding:1.6rem 2.5rem;
-      text-align:center;font-size:12px;color:var(--faint);
-      background:var(--surface);
-    }
-    [data-theme="light"] footer{border-top:3px solid #1e3a5f}
-
-    /* ── RESPONSIVE ── */
-    @media(max-width:660px){
-      .hero{grid-template-columns:1fr}
-      .photo-wrap{order:-1}
-      .photo-wrap img,.photo-ph{width:130px;height:160px}
-      nav{padding:0 1rem}
-      .nav-pill{display:none}
-      .wrap{padding:2rem 1rem}
-      .nav-links{gap:1.1rem}
-      h1{font-size:2rem}
-      .stats{flex-wrap:wrap}
-      .st{min-width:48%;border-bottom:1px solid var(--border)}
-      .tbtn .tl{display:none}
-    }
-  </style>
+footer{
+  border-top:1px solid var(--line-soft); padding:30px 0; margin-top:20px;
+  font-family:var(--mono); font-size:12px; color:var(--ink-faint); text-align:center;
+}
+footer span{color:var(--marsh);}
+</style>
 </head>
 <body>
 
-<!-- ═══ NAV ═══ -->
-<nav>
-  <a class="nav-brand" href="#">
-    <span class="nav-name">Damodar Gautam</span>
-    <span class="nav-pill">Economics · FIU</span>
-  </a>
-  <div class="nav-r">
-    <ul class="nav-links">
-      <li><a href="#research">Research</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <button class="tbtn" onclick="toggleTheme()" id="tbtn">
-      <span id="ticon">☀️</span><span class="tl" id="tlbl">Light</span>
-    </button>
-  </div>
-</nav>
-
-<div class="wrap">
-
-  <!-- ═══ HERO ═══ -->
-  <div class="hero">
-    <div>
-      <h1>Damodar Gautam</h1>
-      <p class="hero-pos">Ph.D. Student · Department of Economics</p>
-      <p class="hero-inst">Florida International University (FIU) — Miami, FL</p>
-      <p class="bio">
-        I am a Ph.D. student in Economics at <strong>Florida International University</strong>.
-        My research spans <strong>Applied Macroeconomics</strong>, <strong>Development Economics</strong>,
-        <strong>Environmental Economics</strong>, and <strong>Causal Inference</strong>.
-        In macroeconomics, I study how global shocks — commodity prices, demand, and uncertainty —
-        transmit to domestic inflation across heterogeneous economies using Bayesian Structural VAR models.
-        In development economics, I examine how overseas remittances shape food security and household
-        welfare among smallholder households in Nepal using shift-share IV and panel data methods.
-        Prior to FIU, I served as a Research Officer at Nepal's <strong>National Agricultural Research
-        Council (NARC)</strong> and CIMMYT-NSAF, conducting socio-economic research across production
-        economics, technology adoption, and natural resource management.
-      </p>
-      <div class="socials">
-        <a href="https://scholar.google.com/citations?user=o_zl-E8AAAAJ&hl=en" target="_blank">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/></svg>
-          Google Scholar
-        </a>
-        <a href="mailto:dgaut010@fiu.edu">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-          dgaut001@fiu.edu
-        </a>
-        <a href="mailto:gautam.damodar.np@gmail.com">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-          Gmail
-        </a>
-        <a href="assets/cv.pdf" target="_blank">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          Curriculum Vitae
-        </a>
-      </div>
-    </div>
-    <div class="photo-wrap">
-      <img src="assets/Damodar.jfif" alt="Damodar Gautam"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>
-      <div class="photo-ph" style="display:none">
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        <span>Photo</span>
-      </div>
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="#home" class="nav-brand"><strong>Damodar Gautam</strong><span>· Economics, FIU</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#research">Research</a>
+      <a href="#papers">Papers</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle color theme">◐</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
     </div>
   </div>
+</header>
 
-  <!-- ═══ STATS ═══ -->
-  <div class="stats">
-    <div class="st"><div class="st-n">14</div><div class="st-l">Publications</div></div>
-    <div class="st"><div class="st-n">45</div><div class="st-l">Economies</div></div>
-    <div class="st"><div class="st-n">6+</div><div class="st-l">Years Research</div></div>
-    <div class="st"><div class="st-n">3</div><div class="st-l">Awards</div></div>
-    <div class="st"><div class="st-n">4</div><div class="st-l">Certifications</div></div>
-  </div>
+<main>
+  <!-- ============================= HERO ============================= -->
+  <section id="home" class="hero">
+    <div class="wrap hero-grid">
+      <div class="reveal in-view">
+        <div class="hero-kicker"><span class="dot"></span> ph.d candidate — department of economics</div>
+        <h1 class="hero-name">Damodar Gautam</h1>
+        <p class="hero-role">Development · Environmental · Applied Macroeconomics</p>
+        <p class="hero-bio">
+          I'm a Ph.D. candidate in Economics at <strong>Florida International University</strong>, working at
+          the intersection of <strong>causal inference</strong> and <strong>panel data methods</strong>.
+          My dissertation evaluates whether Everglades Stormwater Treatment Areas reduced downstream marsh
+          phosphorus using a Callaway–Sant'Anna staggered difference-in-differences design, alongside a chapter
+          on farm-level climate adaptation using causal machine learning. In development economics, I study how
+          overseas remittances shape food security and household welfare among smallholder households in Nepal.
+          Prior to FIU, I was a Research Officer at Nepal's National Agricultural Research Council and CIMMYT-NSAF.
+        </p>
+        <div class="hero-links">
+          <a class="pill-link primary" href="assets/cv.pdf">↓ Curriculum Vitae</a>
+          <a class="pill-link" href="https://scholar.google.com/citations?user=o_zl-E8AAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar ↗</a>
+          <a class="pill-link" href="mailto:dgaut001@fiu.edu">FIU Email</a>
+          <a class="pill-link" href="mailto:gautam.damodar.np@gmail.com">Gmail</a>
+        </div>
+      </div>
 
-  <!-- ═══ RESEARCH FIELDS ═══ -->
-  <section>
-    <div class="sec-hd"><h2 class="sec-title">Research Fields</h2><div class="sec-rule"></div></div>
-    <div class="tags">
-      <span class="tag">Macroeconomics</span>
-      <span class="tag">Development Economics</span>
-      <span class="tag">Environmental Economics</span>
-      <span class="tag">International Economics</span>
-      <span class="tag">Causal Inference</span>
-      <span class="tag">Bayesian Econometrics</span>
-      <span class="tag">Panel Data Methods</span>
-      <span class="tag">Household Welfare</span>
-      <span class="tag">Food Security</span>
-      <span class="tag">Production Economics</span>
-      <span class="tag">Technology Adoption</span>
-      <span class="tag">Agribusiness Management</span>
-      <span class="tag">Natural Resource Economics</span>
-      <span class="tag">Machine Learning in Economics</span>
+      <div class="hero-visual reveal in-view">
+        <div class="portrait">
+          <img src="assets/Damodar.jfif" alt="Portrait of Damodar Gautam">
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap stats reveal in-view">
+      <div class="stat"><div class="num">14</div><div class="lbl">publications</div></div>
+      <div class="stat"><div class="num">6+</div><div class="lbl">years research</div></div>
+      <div class="stat"><div class="num">3</div><div class="lbl">awards</div></div>
+      <div class="stat"><div class="num">4</div><div class="lbl">certifications</div></div>
     </div>
   </section>
 
-  <!-- ═══ WORKING PAPERS ═══ -->
+  <div class="hydro-divider"><svg viewBox="0 0 1000 34" preserveAspectRatio="none"><path class="flow" d="M0,20 C 80,5 160,32 240,18 C 320,4 400,30 480,17 C 560,4 640,30 720,18 C 800,6 880,28 960,16 L1000,17"/><path class="flow accent" d="M0,24 C 100,12 200,30 300,20 C 400,10 500,28 600,19 C 700,10 800,26 900,18 L1000,20"/></svg></div>
+
+  <!-- ============================= RESEARCH FIELDS ============================= -->
   <section id="research">
-    <div class="sec-hd">
-      <h2 class="sec-title">Working Papers</h2>
-      <div class="sec-rule"></div>
-      <span class="sec-ct">4 papers</span>
-    </div>
-    <div class="papers">
-
-      <div class="card wp">
-        <div class="meta">
-          <span class="badge b-wp">Working Paper</span>
-          <span class="b-yr">2025</span>
-          <span class="b-field">Macroeconomics</span>
-          <span class="b-field">International Economics</span>
-        </div>
-        <div class="card-title">Global Shocks and Domestic Inflation: Evidence from 45 Economies</div>
-        <div class="card-authors"><em>Damodar Gautam</em></div>
-        <div class="card-journal">Working Paper · Under Revision for Journal Submission, 2025</div>
-        <button class="abs-btn" onclick="tog(this)"><span>Show Abstract</span><span class="chev">▾</span></button>
-        <div class="abstract">
-          This paper examines how global economic shocks — commodity price shocks, global demand shocks, and uncertainty shocks — transmit to domestic inflation across 45 heterogeneous economies. Using a Bayesian Structural VAR (B-SVAR) framework augmented with novel global uncertainty indices, I document significant heterogeneity in transmission intensity driven by trade openness, financial development, central bank independence, exchange rate regimes, and commodity exposure. The findings provide new evidence on the international propagation of inflationary pressures and their structural determinants.
-        </div>
-        <div class="lnks"><a href="#">PDF</a><a href="#">Abstract</a></div>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">fields</div>
+        <h2>Research Fields</h2>
+        <p class="desc">The methods and substantive areas that recur across my working papers, dissertation chapters, and applied projects.</p>
       </div>
-
-      <div class="card wp">
-        <div class="meta">
-          <span class="badge b-wp">Working Paper</span>
-          <span class="b-yr">2025</span>
-          <span class="b-field">Development Economics</span>
-          <span class="b-field">Food Security</span>
-        </div>
-        <div class="card-title">Overseas Remittances and Smallholder Household Welfare in Nepal</div>
-        <div class="card-authors"><em>Damodar Gautam</em></div>
-        <div class="card-journal">Working Paper · Under Revision for Journal Submission, 2025</div>
-        <button class="abs-btn" onclick="tog(this)"><span>Show Abstract</span><span class="chev">▾</span></button>
-        <div class="abstract">
-          Using the Household Risk and Vulnerability Survey (HRVS) 2016–2018 panel dataset and a Bartik shift-share instrumental variable strategy, this paper estimates the causal effect of overseas remittances on food security and welfare outcomes among smallholder households in Nepal. IV-TWFE buffering models and PSM-DiD robustness checks reveal that food insecurity gaps reflect differential coping capacity rather than differential shock exposure, with significant heterogeneity across household types.
-        </div>
-        <div class="lnks"><a href="#">PDF</a><a href="#">Abstract</a></div>
+      <div class="field-cloud reveal">
+        <span class="tag">Macroeconomics</span><span class="tag">Development Economics</span>
+        <span class="tag">Environmental Economics</span><span class="tag">International Economics</span>
+        <span class="tag">Causal Inference</span><span class="tag">Bayesian Econometrics</span>
+        <span class="tag">Panel Data Methods</span><span class="tag">Household Welfare</span>
+        <span class="tag">Food Security</span><span class="tag">Production Economics</span>
+        <span class="tag">Technology Adoption</span><span class="tag">Agribusiness Management</span>
+        <span class="tag">Natural Resource Economics</span><span class="tag">Machine Learning in Economics</span>
       </div>
-
-      <div class="card wp">
-        <div class="meta">
-          <span class="badge b-rev">Under Review</span>
-          <span class="b-yr">2024</span>
-          <span class="b-field">Agricultural Economics</span>
-          <span class="b-field">Trade</span>
-        </div>
-        <div class="card-title">Comparative Advantage, Relative Export Competitiveness, and Trade Sustainability of Major Agricultural Commodities in Nepal</div>
-        <div class="card-authors"><em>Damodar Gautam</em></div>
-        <div class="card-journal">Journal of Agriculture and Food Research · Under Review, 2024</div>
-        <button class="abs-btn" onclick="tog(this)"><span>Show Abstract</span><span class="chev">▾</span></button>
-        <div class="abstract">
-          This study analyzes the comparative advantage, relative export competitiveness, and trade sustainability of major agricultural commodities in Nepal. Using revealed comparative advantage indices and trade sustainability metrics on FAO and customs data, the paper identifies commodities where Nepal holds structural competitive strengths and documents evolving trade patterns with implications for agricultural export policy.
-        </div>
-        <div class="lnks"><a href="#">Manuscript</a></div>
-      </div>
-
-      <div class="card wp">
-        <div class="meta">
-          <span class="badge b-wp">In Preparation</span>
-          <span class="b-yr">2024</span>
-          <span class="b-field">Environmental Economics</span>
-          <span class="b-field">Climate Change</span>
-        </div>
-        <div class="card-title">Quantification and Spatio-Temporal Predictive Modeling for Climate Change's Impact on Row Crop Production in the US</div>
-        <div class="card-authors"><em>Damodar Gautam</em></div>
-        <div class="card-journal">Under Preparation, 2024</div>
-        <button class="abs-btn" onclick="tog(this)"><span>Show Abstract</span><span class="chev">▾</span></button>
-        <div class="abstract">
-          This paper quantifies and models the spatio-temporal effects of climate change — specifically temperature and precipitation variation — on row crop production across the United States. Integrating econometric methods with machine learning (LSTM networks and ensemble models), the study produces county-level predictive estimates of yield response to climate trajectories, informing adaptation policy for American agriculture.
-        </div>
-        <div class="lnks"><a href="#">Draft</a></div>
-      </div>
-
     </div>
   </section>
 
-  <!-- ═══ PUBLISHED PAPERS ═══ -->
-  <section>
-    <div class="sec-hd">
-      <h2 class="sec-title">Published Papers</h2>
-      <div class="sec-rule"></div>
-      <span class="sec-ct">10 papers</span>
-    </div>
-    <div class="papers">
-
-      <div class="card pub">
-        <div class="meta"><span class="badge b-pub">Published</span><span class="b-yr">2025</span><span class="b-field">Technology Adoption</span><span class="b-field">Agribusiness</span></div>
-        <div class="card-title">Determinants of Improved Seed Adoption and Intensity in Lentil Farming: Evidence from Terai Region of Nepal</div>
-        <div class="card-authors"><em>Damodar Gautam</em>, Shiva Chandra Dhakal, Rishi Ram Kattel &amp; Narayan Prasad Khanal</div>
-        <div class="card-journal">Cogent Food &amp; Agriculture (Taylor &amp; Francis), 2025 · DOI: 10.1080/23311932.2025.2545596</div>
-        <button class="abs-btn" onclick="tog(this)"><span>Show Abstract</span><span class="chev">▾</span></button>
-        <div class="abstract">The prevailing dominance of the informal seed system and dramatically low seed replacement rate are potent evidence of poor adoption of improved lentil seed in Nepal. Using a logit model on primary survey data from 300 households, this study identifies determinants of improved seed adoption and adoption intensity in lentil farming, highlighting extension access, market infrastructure, and socioeconomic characteristics as key drivers.</div>
-        <div class="lnks">
-          <a class="doi" href="https://doi.org/10.1080/23311932.2025.2545596" target="_blank">DOI ↗</a>
-          <a href="https://www.tandfonline.com/doi/full/10.1080/23311932.2025.2545596" target="_blank">Journal Page</a>
-        </div>
+  <!-- ============================= PAPERS ============================= -->
+  <section id="papers">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">manuscripts</div>
+        <h2>Working Papers &amp; Publications</h2>
+        <p class="desc">Four working papers currently in the pipeline, and ten published articles spanning agricultural, development, and production economics.</p>
       </div>
 
-      <div class="card pub">
-        <div class="meta"><span class="badge b-pub">Published</span><span class="b-yr">2024</span><span class="b-field">Nutraceuticals</span><span class="b-field">Legume Science</span></div>
-        <div class="card-title">Nutraceutical and Pharmacological Benefits of Some Leguminous Plants of North-Western Himalaya</div>
-        <div class="card-authors">Kumar, S., Divya, Thakur, S., Verma, M., … &amp; <em>Gautam, D.*</em></div>
-        <div class="card-journal">Legume Science, 6(3), e236, 2024 · DOI: 10.1002/leg3.236</div>
-        <button class="abs-btn" onclick="tog(this)"><span>Show Abstract</span><span class="chev">▾</span></button>
-        <div class="abstract">This study reviews the nutraceutical and pharmacological properties of leguminous plants native to the North-Western Himalayan region, documenting their bioactive compounds, medicinal applications, and potential for contributing to food security and human health in mountainous ecosystems.</div>
-        <div class="lnks"><a class="doi" href="https://doi.org/10.1002/leg3.236" target="_blank">DOI ↗</a></div>
+      <div class="subhead reveal"><h3>Working Papers</h3><span class="count">4 papers</span></div>
+      <div class="paper-list reveal">
+
+        <article class="paper">
+          <div class="paper-top">
+            <div class="paper-meta-row"><span class="status working">Working Paper</span><span class="paper-year">2025</span></div>
+          </div>
+          <h4>Global Shocks and Domestic Inflation: Evidence from 45 Economies</h4>
+          <p class="authors"><em>Damodar Gautam</em></p>
+          <p class="journal">Working Paper · Under Revision for Journal Submission, 2025</p>
+          <div class="field-tags"><span class="tag">Macroeconomics</span><span class="tag">International Economics</span></div>
+          <details class="abstract"><summary>Abstract</summary>
+            <p class="abs-body">This paper examines how global economic shocks — commodity price shocks, global demand shocks, and uncertainty shocks — transmit to domestic inflation across 45 heterogeneous economies. Using a Bayesian Structural VAR (B-SVAR) framework augmented with novel global uncertainty indices, I document significant heterogeneity in transmission intensity driven by trade openness, financial development, central bank independence, exchange rate regimes, and commodity exposure. The findings provide new evidence on the international propagation of inflationary pressures and their structural determinants.</p>
+          </details>
+          <div class="paper-links"><a href="#">PDF</a></div>
+        </article>
+
+        <article class="paper">
+          <div class="paper-top">
+            <div class="paper-meta-row"><span class="status working">Working Paper</span><span class="paper-year">2025</span></div>
+          </div>
+          <h4>Overseas Remittances and Smallholder Household Welfare in Nepal</h4>
+          <p class="authors"><em>Damodar Gautam</em></p>
+          <p class="journal">Working Paper · Under Revision for Journal Submission, 2025</p>
+          <div class="field-tags"><span class="tag">Development Economics</span><span class="tag">Food Security</span></div>
+          <details class="abstract"><summary>Abstract</summary>
+            <p class="abs-body">Using the Household Risk and Vulnerability Survey (HRVS) 2016–2018 panel dataset and a Bartik shift-share instrumental variable strategy, this paper estimates the causal effect of overseas remittances on food security and welfare outcomes among smallholder households in Nepal. IV-TWFE buffering models and PSM-DiD robustness checks reveal that food insecurity gaps reflect differential coping capacity rather than differential shock exposure, with significant heterogeneity across household types.</p>
+          </details>
+          <div class="paper-links"><a href="#">PDF</a></div>
+        </article>
+
+        <article class="paper">
+          <div class="paper-top">
+            <div class="paper-meta-row"><span class="status review">Under Review</span><span class="paper-year">2024</span></div>
+          </div>
+          <h4>Comparative Advantage, Relative Export Competitiveness, and Trade Sustainability of Major Agricultural Commodities in Nepal</h4>
+          <p class="authors"><em>Damodar Gautam</em></p>
+          <p class="journal">Journal of Agriculture and Food Research · Under Review, 2024</p>
+          <div class="field-tags"><span class="tag">Agricultural Economics</span><span class="tag">Trade</span></div>
+          <details class="abstract"><summary>Abstract</summary>
+            <p class="abs-body">This study analyzes the comparative advantage, relative export competitiveness, and trade sustainability of major agricultural commodities in Nepal. Using revealed comparative advantage indices and trade sustainability metrics on FAO and customs data, the paper identifies commodities where Nepal holds structural competitive strengths and documents evolving trade patterns with implications for agricultural export policy.</p>
+          </details>
+          <div class="paper-links"><a href="#">Manuscript</a></div>
+        </article>
+
+        <article class="paper">
+          <div class="paper-top">
+            <div class="paper-meta-row"><span class="status prep">In Preparation</span><span class="paper-year">2024</span></div>
+          </div>
+          <h4>Quantification and Spatio-Temporal Predictive Modeling for Climate Change's Impact on Row Crop Production in the US</h4>
+          <p class="authors"><em>Damodar Gautam</em></p>
+          <p class="journal">Under Preparation, 2024</p>
+          <div class="field-tags"><span class="tag">Environmental Economics</span><span class="tag">Climate Change</span></div>
+          <details class="abstract"><summary>Abstract</summary>
+            <p class="abs-body">This paper quantifies and models the spatio-temporal effects of climate change — specifically temperature and precipitation variation — on row crop production across the United States. Integrating econometric methods with machine learning (LSTM networks and ensemble models), the study produces county-level predictive estimates of yield response to climate trajectories, informing adaptation policy for American agriculture.</p>
+          </details>
+          <div class="paper-links"><a href="#">Draft</a></div>
+        </article>
+
       </div>
 
-      <div class="card pub">
-        <div class="meta"><span class="badge b-pub">Published</span><span class="b-yr">2023</span><span class="b-field">Impact Evaluation</span><span class="b-field">Climate Adaptation</span></div>
-        <div class="card-title">Impact of Adoption of Heat-Stress Tolerant Maize Hybrid on Yield and Profitability: Evidence from Terai Region of Nepal</div>
-        <div class="card-authors">Atul P. Kulkarni, Mahendra P. Tripathi, <em>Damodar Gautam</em>, Keshab B. Koirala, Manoj Kandel &amp; Pervez H. Zaidi</div>
-        <div class="card-journal">Frontiers in Sustainable Food Systems, 7: 190, 2023 · DOI: 10.3389/fsufs.2023.1101717</div>
-        <button class="abs-btn" onclick="tog(this)"><span>Show Abstract</span><span class="chev">▾</span></button>
-        <div class="abstract">Abiotic stresses including drought and heat are major impediments to maize productivity for marginal farmers. This study investigates yield and income impacts of adopting CIMMYT heat-stress tolerant maize hybrids in Nepal's Terai. Adopters showed significant gains in productivity and profitability relative to non-adopters, demonstrating the welfare benefits of climate-adaptive technology when combined with effective seed delivery systems.</div>
-        <div class="lnks">
-          <a class="doi" href="https://doi.org/10.3389/fsufs.2023.1101717" target="_blank">DOI ↗</a>
-          <a href="https://www.frontiersin.org/articles/10.3389/fsufs.2023.1101717/full" target="_blank">Full Text</a>
-        </div>
+      <div class="subhead reveal"><h3>Published Papers</h3><span class="count">10 papers</span></div>
+      <div class="paper-list reveal">
+
+        <article class="paper">
+          <div class="paper-top"><div class="paper-meta-row"><span class="status published">Published</span><span class="paper-year">2025</span></div></div>
+          <h4>Determinants of Improved Seed Adoption and Intensity in Lentil Farming: Evidence from Terai Region of Nepal</h4>
+          <p class="authors"><em>Damodar Gautam</em>, Shiva Chandra Dhakal, Rishi Ram Kattel &amp; Narayan Prasad Khanal</p>
+          <p class="journal">Cogent Food &amp; Agriculture (Taylor &amp; Francis), 2025 · DOI: 10.1080/23311932.2025.2545596</p>
+          <div class="field-tags"><span class="tag">Technology Adoption</span><span class="tag">Agribusiness</span></div>
+          <details class="abstract"><summary>Abstract</summary>
+            <p class="abs-body">The prevailing dominance of the informal seed system and dramatically low seed replacement rate are potent evidence of poor adoption of improved lentil seed in Nepal. Using a logit model on primary survey data from 300 households, this study identifies determinants of improved seed adoption and adoption intensity in lentil farming, highlighting extension access, market infrastructure, and socioeconomic characteristics as key drivers.</p>
+          </details>
+          <div class="paper-links"><a href="https://doi.org/10.1080/23311932.2025.2545596" target="_blank" rel="noopener">DOI ↗</a><a href="https://www.tandfonline.com/doi/full/10.1080/23311932.2025.2545596" target="_blank" rel="noopener">Journal Page ↗</a></div>
+        </article>
+
+        <article class="paper">
+          <div class="paper-top"><div class="paper-meta-row"><span class="status published">Published</span><span class="paper-year">2024</span></div></div>
+          <h4>Nutraceutical and Pharmacological Benefits of Some Leguminous Plants of North-Western Himalaya</h4>
+          <p class="authors">Kumar, S., Divya, Thakur, S., Verma, M., … &amp; <em>Gautam, D.</em></p>
+          <p class="journal">Legume Science, 6(3), e236, 2024 · DOI: 10.1002/leg3.236</p>
+          <div class="field-tags"><span class="tag">Nutraceuticals</span><span class="tag">Legume Science</span></div>
+          <details class="abstract"><summary>Abstract</summary>
+            <p class="abs-body">This study reviews the nutraceutical and pharmacological properties of leguminous plants native to the North-Western Himalayan region, documenting their bioactive compounds, medicinal applications, and potential for contributing to food security and human health in mountainous ecosystems.</p>
+          </details>
+          <div class="paper-links"><a href="https://doi.org/10.1002/leg3.236" target="_blank" rel="noopener">DOI ↗</a></div>
+        </article>
+
+        <article class="paper">
+          <div class="paper-top"><div class="paper-meta-row"><span class="status published">Published</span><span class="paper-year">2023</span></div></div>
+          <h4>Impact of Adoption of Heat-Stress Tolerant Maize Hybrid on Yield and Profitability: Evidence from Terai Region of Nepal</h4>
+          <p class="authors">Atul P. Kulkarni, Mahendra P. Tripathi, <em>Damodar Gautam</em>, Keshab B. Koirala, Manoj Kandel &amp; Pervez H. Zaidi</p>
+          <p class="journal">Frontiers in Sustainable Food Systems, 7: 190, 2023 · DOI: 10.3389/fsufs.2023.1101717</p>
+          <div class="field-tags"><span class="tag">Impact Evaluation</span><span class="tag">Climate Adaptation</span></div>
+          <details class="abstract"><summary>Abstract</summary>
+            <p class="abs-body">Abiotic stresses including drought and heat are major impediments to maize productivity for marginal farmers. This study investigates yield and income impacts of adopting CIMMYT heat-stress tolerant maize hybrids in Nepal's Terai. Adopters showed significant gains in productivity and profitability relative to non-adopters, demonstrating the welfare benefits of climate-adaptive technology when combined with effective seed delivery systems.</p>
+          </details>
+          <div class="paper-links"><a href="https://doi.org/10.3389/fsufs.2023.1101717" target="_blank" rel="noopener">DOI ↗</a><a href="https://www.frontiersin.org/articles/10.3389/fsufs.2023.1101717/full" target="_blank" rel="noopener">Full Text ↗</a></div>
+        </article>
+
+        <article class="paper">
+          <div class="paper-top"><div class="paper-meta-row"><span class="status published">Published</span><span class="paper-year">2023</span></div></div>
+          <h4>Strengthening the Competitiveness of the Lentil Seed System of Nepal: A Value Chain Approach</h4>
+          <p class="authors"><em>Damodar Gautam</em>, Shiva Chandra Dhakal, Rishi Ram Kattel &amp; Narayan Prasad Khanal</p>
+          <p class="journal">Journal of Agribusiness and Rural Development, 1(67): 63–77, 2023 · DOI: 10.17306/J.JARD.2023.01640</p>
+          <div class="field-tags"><span class="tag">Value Chain</span><span class="tag">Seed Systems</span></div>
+          <details class="abstract"><summary>Abstract</summary>
+            <p class="abs-body">Using household surveys of 300 grain-producing and 100 seed-producing farmers across Kailali, Dang, and Siraha districts, this study maps Nepal's lentil seed value chain. ROI per total cost was highest for seed producers (59.3%), while total price spread reached 45.21% of consumer price — evidence of systemic marketing inefficiency. The study calls for coordinated policy reforms and public-private partnerships across the value chain.</p>
+          </details>
+          <div class="paper-links"><a href="https://doi.org/10.17306/J.JARD.2023.01640" target="_blank" rel="noopener">DOI ↗</a><a href="https://ageconsearch.umn.edu/record/356217" target="_blank" rel="noopener">AgEcon Search ↗</a><a href="https://ssrn.com/abstract=4374457" target="_blank" rel="noopener">SSRN ↗</a></div>
+        </article>
+
+        <article class="paper">
+          <div class="paper-top"><div class="paper-meta-row"><span class="status published">Published</span><span class="paper-year">2023</span></div></div>
+          <h4>Willingness to Pay (WTP) for Heat-Tolerant Maize Hybrids in the Mid-Western Terai Region of Nepal</h4>
+          <p class="authors">Atul P. Kulkarni, Mahendra P. Tripathi, <em>Damodar Gautam</em>, Keshab B. Koirala, Manoj Kandel, Dhruba Regmi, Sudha Sapkota &amp; Pervez H. Zaidi</p>
+          <p class="journal">Sustainability (MDPI), 15(4): 3068, 2023 · DOI: 10.3390/su15043068</p>
+          <div class="field-tags"><span class="tag">Production Economics</span><span class="tag">WTP</span></div>
+          <details class="abstract"><summary>Abstract</summary>
+            <p class="abs-body">Using the contingent valuation method on a socioeconomic survey of 404 randomly selected maize-growing households in Nepal's Terai, this study estimates farmers' WTP for CIMMYT heat-tolerant maize hybrids. Average WTP is positive but below market price, shaped by farm size, income, information access, and prior exposure to stress-resilient varieties. Findings support public-private investment in climate-adaptive crop deployment.</p>
+          </details>
+          <div class="paper-links"><a href="https://doi.org/10.3390/su15043068" target="_blank" rel="noopener">DOI ↗</a><a href="https://www.mdpi.com/2071-1050/15/4/3068" target="_blank" rel="noopener">Full Text ↗</a></div>
+        </article>
+
+        <article class="paper">
+          <div class="paper-top"><div class="paper-meta-row"><span class="status published">Published</span><span class="paper-year">2022</span></div></div>
+          <h4>Production Economics and Resource Use Efficiency (RUE) in Lentil Seed and Grain Production in Terai and Inner Terai Regions of Nepal</h4>
+          <p class="authors"><em>Damodar Gautam</em>, Shiva Chandra Dhakal, Rishi Ram Kattel &amp; Narayan Prasad Khanal</p>
+          <p class="journal">Journal of Nepal Agricultural Research Council, 8(12): 72–87, 2022 · DOI: 10.3126/jnarc.v8i.44865</p>
+          <div class="field-tags"><span class="tag">Resource Efficiency</span><span class="tag">Production Economics</span></div>
+          <details class="abstract"><summary>Abstract</summary>
+            <p class="abs-body">This study examines input allocation efficiency among smallholder lentil farmers in Nepal's Terai and Inner Terai regions using Cobb-Douglas production function analysis. Results identify significant allocative inefficiency and input underutilization, with implications for extension programming and input subsidy design.</p>
+          </details>
+          <div class="paper-links"><a href="https://doi.org/10.3126/jnarc.v8i.44865" target="_blank" rel="noopener">DOI ↗</a><a href="https://www.nepjol.info/index.php/JNARC/article/view/44865" target="_blank" rel="noopener">Full Text ↗</a></div>
+        </article>
+
+        <article class="paper">
+          <div class="paper-top"><div class="paper-meta-row"><span class="status published">Published</span><span class="paper-year">2022</span></div></div>
+          <h4>Production and Trade Scenario of Major Underutilized Crops of Nepal</h4>
+          <p class="authors"><em>Damodar Gautam</em> &amp; Bhuwan Subedi</p>
+          <p class="journal">Journal of Applied Agricultural Science and Technology, 6(1): 71–84, 2022 · DOI: 10.55043/jaast.v6i1.52</p>
+          <div class="field-tags"><span class="tag">Trade Policy</span><span class="tag">Agricultural Economics</span></div>
+          <details class="abstract"><summary>Abstract</summary>
+            <p class="abs-body">Underutilized crops — finger millet, buckwheat, and barley — hold significant potential for food and dietary diversification in Nepal yet remain under-prioritized. Using FAOSTAT and customs data with linear regression trend analysis, this study reveals production and trade trajectories and identifies policy levers to enhance their contribution to food security and export earnings.</p>
+          </details>
+          <div class="paper-links"><a href="https://doi.org/10.55043/jaast.v6i1.52" target="_blank" rel="noopener">DOI ↗</a><a href="https://www.jaast.org/index.php/jaast/article/view/52" target="_blank" rel="noopener">Full Text ↗</a></div>
+        </article>
+
+        <article class="paper">
+          <div class="paper-top"><div class="paper-meta-row"><span class="status published">Published</span><span class="paper-year">2022</span></div></div>
+          <h4>Study on Possible Forthcoming Scenario of Nepalese Tea Sector Analyzing the Ongoing Status on Production, Trade and Marketing</h4>
+          <p class="authors"><em>Damodar Gautam</em> &amp; S. Poudel</p>
+          <p class="journal">Malaysian Business Management Journal, 1(2): 53–58, 2022 · DOI: 10.26480/mbmj.02.2022.53.58</p>
+          <div class="field-tags"><span class="tag">Agribusiness</span><span class="tag">Trade</span></div>
+          <details class="abstract"><summary>Abstract</summary>
+            <p class="abs-body">This study analyzes the production, trade, and marketing dynamics of Nepal's tea sector and projects possible future scenarios. Using secondary data on export volumes, pricing, and market destinations, the paper documents structural challenges and identifies strategic opportunities for improving the competitiveness of Nepalese tea in international markets.</p>
+          </details>
+          <div class="paper-links"><a href="http://doi.org/10.26480/mbmj.02.2022.53.58" target="_blank" rel="noopener">DOI ↗</a></div>
+        </article>
+
+        <article class="paper">
+          <div class="paper-top"><div class="paper-meta-row"><span class="status published">Published</span><span class="paper-year">2022</span></div></div>
+          <h4>Nepalese Lentil: Possible Forthcoming Transition from the Top Exportable to the Most Importable Legume</h4>
+          <p class="authors"><em>Damodar Gautam</em>, Shiva Chandra Dhakal, Rishi Ram Kattel &amp; Narayan Prasad Khanal</p>
+          <p class="journal">Journal of Agricultural and Socio-Economic Sciences, 5(125): 1–16, 2022</p>
+          <div class="field-tags"><span class="tag">Legume Economics</span><span class="tag">Trade</span></div>
+          <details class="abstract"><summary>Abstract</summary>
+            <p class="abs-body">Nepal has historically been a top exporter of lentils, yet structural shifts in production economics, seed system failures, and changing demand patterns suggest an imminent transition to net-importer status. This paper documents the economic drivers of this transition and offers policy recommendations to reverse the trend through seed system reform and productivity investments.</p>
+          </details>
+          <div class="paper-links"><a href="http://rjoas.com/issue-2022-05/article_14.pdf" target="_blank" rel="noopener">Full Text ↗</a></div>
+        </article>
+
+        <article class="paper">
+          <div class="paper-top"><div class="paper-meta-row"><span class="status published">Published</span><span class="paper-year">2021–22</span></div></div>
+          <h4>Selected Maize &amp; Biofortification Studies (4 papers, 2021–2022)</h4>
+          <p class="authors">Tripathi, M.P., <em>Gautam, D.</em>, Koirala, K.B. et al. · Joshi, P. &amp; <em>Gautam, D.</em> · <em>Gautam, D.</em>, Shrestha, B. &amp; Subedi, B.</p>
+          <p class="journal">Archives of Agricultural &amp; Environmental Science · Asian J. Advances in Agricultural Research · J. Agriculture and Applied Biology, 2021–2022</p>
+          <div class="field-tags"><span class="tag">Maize Research</span><span class="tag">Biofortification</span></div>
+          <details class="abstract"><summary>Show details</summary>
+            <div class="subitems">
+              <div class="sub"><span class="si-title">1. Evaluation of pro-vitamin A enriched maize hybrids for fighting hidden hunger in Nepal</span><span class="si-meta">J. Agriculture and Applied Biology, 3(1): 19–27, 2022 · DOI: 10.11594/jaab.03.01.03</span></div>
+              <div class="sub"><span class="si-title">2. Genetic insights on single cross maize hybrid and its importance on maize self-sufficiency in Nepal</span><span class="si-meta">Archives of Agricultural and Environmental Science, 6(2): 218–226, 2021 · DOI: 10.26832/24566632.2021.0602014</span></div>
+              <div class="sub"><span class="si-title">3. Field performance of three-way cross yellow and white maize hybrids in Nepal</span><span class="si-meta">Asian Journal of Advances in Agricultural Research, 15(1): 24–33, 2021 · DOI: 10.9734/ajaar/2021/v15i130144</span></div>
+              <div class="sub"><span class="si-title">4. Bio-fortified maize: Cornerstone in plant breeding to combat hidden hunger in developing countries</span><span class="si-meta">Archives of Agricultural and Environmental Science, 6(1): 100–107, 2021 · DOI: 10.26832/24566632.2021.0601013</span></div>
+            </div>
+          </details>
+          <div class="paper-links">
+            <a href="https://dx.doi.org/10.11594/jaab.03.01.03" target="_blank" rel="noopener">Paper 1</a>
+            <a href="https://dx.doi.org/10.26832/24566632.2021.0602014" target="_blank" rel="noopener">Paper 2</a>
+            <a href="https://doi.org/10.9734/ajaar/2021/v15i130144" target="_blank" rel="noopener">Paper 3</a>
+            <a href="https://doi.org/10.26832/24566632.2021.0601013" target="_blank" rel="noopener">Paper 4</a>
+          </div>
+        </article>
+
       </div>
 
-      <div class="card pub">
-        <div class="meta"><span class="badge b-pub">Published</span><span class="b-yr">2023</span><span class="b-field">Value Chain</span><span class="b-field">Seed Systems</span></div>
-        <div class="card-title">Strengthening the Competitiveness of the Lentil Seed System of Nepal: A Value Chain Approach</div>
-        <div class="card-authors"><em>Damodar Gautam</em>, Shiva Chandra Dhakal, Rishi Ram Kattel &amp; Narayan Prasad Khanal</div>
-        <div class="card-journal">Journal of Agribusiness and Rural Development, 1(67): 63–77, 2023 · DOI: 10.17306/J.JARD.2023.01640</div>
-        <button class="abs-btn" onclick="tog(this)"><span>Show Abstract</span><span class="chev">▾</span></button>
-        <div class="abstract">Using household surveys of 300 grain-producing and 100 seed-producing farmers across Kailali, Dang, and Siraha districts, this study maps Nepal's lentil seed value chain. ROI per total cost was highest for seed producers (59.3%), while total price spread reached 45.21% of consumer price — evidence of systemic marketing inefficiency. The study calls for coordinated policy reforms and public-private partnerships across the value chain.</div>
-        <div class="lnks">
-          <a class="doi" href="https://doi.org/10.17306/J.JARD.2023.01640" target="_blank">DOI ↗</a>
-          <a href="https://ageconsearch.umn.edu/record/356217" target="_blank">AgEcon Search</a>
-          <a href="https://ssrn.com/abstract=4374457" target="_blank">SSRN</a>
-        </div>
+      <div class="subhead reveal"><h3>Ongoing Research Projects</h3><span class="count">6</span></div>
+      <div class="project-grid reveal">
+        <div class="project-card"><span class="idx">01</span>Stochastic optimization of lentil and hybrid corn seed supply chain incorporating production, technological, and policy uncertainties using GAMS and Monte Carlo simulation.</div>
+        <div class="project-card"><span class="idx">02</span>Integration of econometric and machine learning models for segmentation of heterogeneous farmer groups and prediction of heat-stress tolerant corn hybrid adoption (CIMMYT collaboration).</div>
+        <div class="project-card"><span class="idx">03</span>Application of LSTM networks to forecast crop yields (rice, corn, wheat) in Nepal based on historical yield data, weather, and soil characteristics across different regions.</div>
+        <div class="project-card"><span class="idx">04</span>Long-term effects of climate change — temperature and rainfall variation — on agricultural production in Nepal.</div>
+        <div class="project-card"><span class="idx">05</span>Comparative advantage, relative export competitiveness, and trade sustainability of major agricultural commodities in Nepal.</div>
+        <div class="project-card"><span class="idx">06</span>Spatio-temporal predictive modeling for climate change impacts on row crop production across the United States.</div>
       </div>
-
-      <div class="card pub">
-        <div class="meta"><span class="badge b-pub">Published</span><span class="b-yr">2023</span><span class="b-field">Production Economics</span><span class="b-field">WTP</span></div>
-        <div class="card-title">Willingness to Pay (WTP) for Heat-Tolerant Maize Hybrids in the Mid-Western Terai Region of Nepal</div>
-        <div class="card-authors">Atul P. Kulkarni, Mahendra P. Tripathi, <em>Damodar Gautam</em>, Keshab B. Koirala, Manoj Kandel, Dhruba Regmi, Sudha Sapkota &amp; Pervez H. Zaidi</div>
-        <div class="card-journal">Sustainability (MDPI), 15(4): 3068, 2023 · DOI: 10.3390/su15043068</div>
-        <button class="abs-btn" onclick="tog(this)"><span>Show Abstract</span><span class="chev">▾</span></button>
-        <div class="abstract">Using the contingent valuation method on a socioeconomic survey of 404 randomly selected maize-growing households in Nepal's Terai, this study estimates farmers' WTP for CIMMYT heat-tolerant maize hybrids. Average WTP is positive but below market price, shaped by farm size, income, information access, and prior exposure to stress-resilient varieties. Findings support public-private investment in climate-adaptive crop deployment.</div>
-        <div class="lnks">
-          <a class="doi" href="https://doi.org/10.3390/su15043068" target="_blank">DOI ↗</a>
-          <a href="https://www.mdpi.com/2071-1050/15/4/3068" target="_blank">Full Text</a>
-        </div>
-      </div>
-
-      <div class="card pub">
-        <div class="meta"><span class="badge b-pub">Published</span><span class="b-yr">2022</span><span class="b-field">Resource Efficiency</span><span class="b-field">Production Economics</span></div>
-        <div class="card-title">Production Economics and Resource Use Efficiency (RUE) in Lentil Seed and Grain Production in Terai and Inner Terai Regions of Nepal</div>
-        <div class="card-authors"><em>Damodar Gautam</em>, Shiva Chandra Dhakal, Rishi Ram Kattel &amp; Narayan Prasad Khanal</div>
-        <div class="card-journal">Journal of Nepal Agricultural Research Council, 8(12): 72–87, 2022 · DOI: 10.3126/jnarc.v8i.44865</div>
-        <button class="abs-btn" onclick="tog(this)"><span>Show Abstract</span><span class="chev">▾</span></button>
-        <div class="abstract">This study examines input allocation efficiency among smallholder lentil farmers in Nepal's Terai and Inner Terai regions using Cobb-Douglas production function analysis. Results identify significant allocative inefficiency and input underutilization, with implications for extension programming and input subsidy design.</div>
-        <div class="lnks">
-          <a class="doi" href="https://doi.org/10.3126/jnarc.v8i.44865" target="_blank">DOI ↗</a>
-          <a href="https://www.nepjol.info/index.php/JNARC/article/view/44865" target="_blank">Full Text</a>
-        </div>
-      </div>
-
-      <div class="card pub">
-        <div class="meta"><span class="badge b-pub">Published</span><span class="b-yr">2022</span><span class="b-field">Trade Policy</span><span class="b-field">Agricultural Economics</span></div>
-        <div class="card-title">Production and Trade Scenario of Major Underutilized Crops of Nepal</div>
-        <div class="card-authors"><em>Damodar Gautam</em> &amp; Bhuwan Subedi</div>
-        <div class="card-journal">Journal of Applied Agricultural Science and Technology, 6(1): 71–84, 2022 · DOI: 10.55043/jaast.v6i1.52</div>
-        <button class="abs-btn" onclick="tog(this)"><span>Show Abstract</span><span class="chev">▾</span></button>
-        <div class="abstract">Underutilized crops — finger millet, buckwheat, and barley — hold significant potential for food and dietary diversification in Nepal yet remain under-prioritized. Using FAOSTAT and customs data with linear regression trend analysis, this study reveals production and trade trajectories and identifies policy levers to enhance their contribution to food security and export earnings.</div>
-        <div class="lnks">
-          <a class="doi" href="https://doi.org/10.55043/jaast.v6i1.52" target="_blank">DOI ↗</a>
-          <a href="https://www.jaast.org/index.php/jaast/article/view/52" target="_blank">Full Text</a>
-        </div>
-      </div>
-
-      <div class="card pub">
-        <div class="meta"><span class="badge b-pub">Published</span><span class="b-yr">2022</span><span class="b-field">Agribusiness</span><span class="b-field">Trade</span></div>
-        <div class="card-title">Study on Possible Forthcoming Scenario of Nepalese Tea Sector Analyzing the Ongoing Status on Production, Trade and Marketing</div>
-        <div class="card-authors"><em>Damodar Gautam</em> &amp; S. Poudel</div>
-        <div class="card-journal">Malaysian Business Management Journal, 1(2): 53–58, 2022 · DOI: 10.26480/mbmj.02.2022.53.58</div>
-        <button class="abs-btn" onclick="tog(this)"><span>Show Abstract</span><span class="chev">▾</span></button>
-        <div class="abstract">This study analyzes the production, trade, and marketing dynamics of Nepal's tea sector and projects possible future scenarios. Using secondary data on export volumes, pricing, and market destinations, the paper documents structural challenges and identifies strategic opportunities for improving the competitiveness of Nepalese tea in international markets.</div>
-        <div class="lnks"><a class="doi" href="http://doi.org/10.26480/mbmj.02.2022.53.58" target="_blank">DOI ↗</a></div>
-      </div>
-
-      <div class="card pub">
-        <div class="meta"><span class="badge b-pub">Published</span><span class="b-yr">2022</span><span class="b-field">Legume Economics</span><span class="b-field">Trade</span></div>
-        <div class="card-title">Nepalese Lentil: Possible Forthcoming Transition from the Top Exportable to the Most Importable Legume</div>
-        <div class="card-authors"><em>Damodar Gautam</em>, Shiva Chandra Dhakal, Rishi Ram Kattel &amp; Narayan Prasad Khanal</div>
-        <div class="card-journal">Journal of Agricultural and Socio-Economic Sciences, 5(125): 1–16, 2022</div>
-        <button class="abs-btn" onclick="tog(this)"><span>Show Abstract</span><span class="chev">▾</span></button>
-        <div class="abstract">Nepal has historically been a top exporter of lentils, yet structural shifts in production economics, seed system failures, and changing demand patterns suggest an imminent transition to net-importer status. This paper documents the economic drivers of this transition and offers policy recommendations to reverse the trend through seed system reform and productivity investments.</div>
-        <div class="lnks"><a class="doi" href="http://rjoas.com/issue-2022-05/article_14.pdf" target="_blank">Full Text ↗</a></div>
-      </div>
-
-      <div class="card pub">
-        <div class="meta"><span class="badge b-pub">Published</span><span class="b-yr">2021–22</span><span class="b-field">Maize Research</span><span class="b-field">Biofortification</span></div>
-        <div class="card-title">Selected Maize &amp; Biofortification Studies (4 papers, 2021–2022)</div>
-        <div class="card-authors">Tripathi, M.P., <em>Gautam, D.</em>, Koirala, K.B. et al. &nbsp;·&nbsp; Joshi, P. &amp; <em>Gautam, D.</em> &nbsp;·&nbsp; <em>Gautam, D.</em>, Shrestha, B. &amp; Subedi, B.</div>
-        <div class="card-journal">Archives of Agricultural &amp; Environmental Science · Asian J. Advances in Agricultural Research · J. Agriculture and Applied Biology, 2021–2022</div>
-        <button class="abs-btn" onclick="tog(this)"><span>Show Details</span><span class="chev">▾</span></button>
-        <div class="abstract">
-          <strong>1.</strong> Evaluation of pro-vitamin A enriched maize hybrids for fighting hidden hunger in Nepal — <em>J. Agriculture and Applied Biology</em>, 3(1): 19–27, 2022. DOI: 10.11594/jaab.03.01.03<br/><br/>
-          <strong>2.</strong> Genetic insights on single cross maize hybrid and its importance on maize self-sufficiency in Nepal — <em>Archives of Agricultural and Environmental Science</em>, 6(2): 218–226, 2021. DOI: 10.26832/24566632.2021.0602014<br/><br/>
-          <strong>3.</strong> Field performance of three-way cross yellow and white maize hybrids in Nepal — <em>Asian Journal of Advances in Agricultural Research</em>, 15(1): 24–33, 2021. DOI: 10.9734/ajaar/2021/v15i130144<br/><br/>
-          <strong>4.</strong> Bio-fortified maize: Cornerstone in plant breeding to combat hidden hunger in developing countries — <em>Archives of Agricultural and Environmental Science</em>, 6(1): 100–107, 2021. DOI: 10.26832/24566632.2021.0601013
-        </div>
-        <div class="lnks">
-          <a class="doi" href="https://dx.doi.org/10.11594/jaab.03.01.03" target="_blank">Paper 1</a>
-          <a class="doi" href="https://dx.doi.org/10.26832/24566632.2021.0602014" target="_blank">Paper 2</a>
-          <a class="doi" href="https://doi.org/10.9734/ajaar/2021/v15i130144" target="_blank">Paper 3</a>
-          <a class="doi" href="https://doi.org/10.26832/24566632.2021.0601013" target="_blank">Paper 4</a>
-        </div>
-      </div>
-
     </div>
   </section>
 
-  <!-- ═══ ONGOING RESEARCH PROJECTS ═══ -->
-  <section>
-    <div class="sec-hd"><h2 class="sec-title">Ongoing Research Projects</h2><div class="sec-rule"></div></div>
-    <div class="proj-grid">
-      <div class="proj-card"><div class="proj-dot"></div><div class="proj-text">Stochastic optimization of lentil and hybrid corn seed supply chain incorporating production, technological, and policy uncertainties using GAMS and Monte Carlo simulation</div></div>
-      <div class="proj-card"><div class="proj-dot"></div><div class="proj-text">Integration of econometric and machine learning models for segmentation of heterogeneous farmer groups and prediction of heat-stress tolerant corn hybrid adoption (CIMMYT collaboration)</div></div>
-      <div class="proj-card"><div class="proj-dot"></div><div class="proj-text">Application of LSTM networks to forecast crop yields (rice, corn, wheat) in Nepal based on historical yield data, weather, and soil characteristics across different regions</div></div>
-      <div class="proj-card"><div class="proj-dot"></div><div class="proj-text">Long-term effects of climate change — temperature and rainfall variation — on agricultural production in Nepal</div></div>
-      <div class="proj-card"><div class="proj-dot"></div><div class="proj-text">Comparative advantage, relative export competitiveness, and trade sustainability of major agricultural commodities in Nepal</div></div>
-      <div class="proj-card"><div class="proj-dot"></div><div class="proj-text">Spatio-temporal predictive modeling for climate change impacts on row crop production across the United States</div></div>
-    </div>
-  </section>
+  <div class="hydro-divider"><svg viewBox="0 0 1000 34" preserveAspectRatio="none"><path class="flow" d="M0,18 C 90,32 170,4 250,20 C 330,34 410,6 490,19 C 570,32 650,4 730,19 C 810,32 890,6 970,18 L1000,18"/></svg></div>
 
-  <!-- ═══ WORK EXPERIENCE ═══ -->
+  <!-- ============================= EXPERIENCE ============================= -->
   <section id="experience">
-    <div class="sec-hd"><h2 class="sec-title">Work Experience</h2><div class="sec-rule"></div></div>
-    <div class="exp-list">
-      <div class="exp-item">
-        <div class="exp-top"><div class="exp-role">Research Officer</div><span class="exp-period">May 2018 – Present</span></div>
-        <div class="exp-org">Government of Nepal, Nepal Agricultural Research Council (NARC) &amp; Nepal Seed and Fertilizer (NSAF) Project, CIMMYT</div>
-        <div class="exp-desc">Conduct, supervise, document, and present socio-economic research in production economics, technology adoption, efficiency measures, natural resource economics, and poverty reduction.</div>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">appointments</div>
+        <h2>Work Experience</h2>
       </div>
-      <div class="exp-item">
-        <div class="exp-top"><div class="exp-role">Invited Lecturer (Fixed-Term)</div><span class="exp-period">January 2022 – June 2023</span></div>
-        <div class="exp-org">Agriculture and Forestry University (AFU), Chitwan &amp; Far-Western University, Kailali, Nepal</div>
-        <div class="exp-desc">Delivered undergraduate lectures in <em>Principles of Economics</em> (B.Sc. Agri, Sem 1), <em>Farm Management and Production Economics</em> (Sem 2), and <em>Agribusiness Management and Marketing</em> (Sem 7).</div>
-      </div>
-      <div class="exp-item">
-        <div class="exp-top"><div class="exp-role">Socio-Economic Consultant</div><span class="exp-period">October 2021 – Present</span></div>
-        <div class="exp-org">Save the Children, Nepal &amp; Innovation for Sustainable Resource Management Pvt. Ltd., Chitwan, Nepal</div>
-        <div class="exp-desc">Labor market assessment, willingness-to-pay studies, impact evaluation of socio-economic projects, research implementation, report writing, and presentation.</div>
-      </div>
-      <div class="exp-item">
-        <div class="exp-top"><div class="exp-role">Country Team Leader</div><span class="exp-period">February 2021 – July 2021</span></div>
-        <div class="exp-org">CIMMYT-Hyderabad, India &amp; National Maize Research Program (NMRP), Chitwan, Nepal</div>
-        <div class="exp-desc">Led end-line survey on impact of Nepalese corn hybrid (RH-10) adoption in rural communities across major corn-belt regions of Terai Nepal. Managed 8 enumerators, 2 provincial supervisors, and 4 part-time workers.</div>
+      <div class="timeline reveal">
+        <div class="tl-item">
+          <div class="tl-date">May 2018 – Present</div>
+          <h4>Research Officer</h4>
+          <div class="tl-org">Government of Nepal, Nepal Agricultural Research Council (NARC) &amp; Nepal Seed and Fertilizer (NSAF) Project, CIMMYT</div>
+          <p class="tl-desc">Conduct, supervise, document, and present socio-economic research in production economics, technology adoption, efficiency measures, natural resource economics, and poverty reduction.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">January 2022 – June 2023</div>
+          <h4>Invited Lecturer (Fixed-Term)</h4>
+          <div class="tl-org">Agriculture and Forestry University (AFU), Chitwan &amp; Far-Western University, Kailali, Nepal</div>
+          <p class="tl-desc">Delivered undergraduate lectures in Principles of Economics (B.Sc. Agri, Sem 1), Farm Management and Production Economics (Sem 2), and Agribusiness Management and Marketing (Sem 7).</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">October 2021 – Present</div>
+          <h4>Socio-Economic Consultant</h4>
+          <div class="tl-org">Save the Children, Nepal &amp; Innovation for Sustainable Resource Management Pvt. Ltd., Chitwan, Nepal</div>
+          <p class="tl-desc">Labor market assessment, willingness-to-pay studies, impact evaluation of socio-economic projects, research implementation, report writing, and presentation.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">February 2021 – July 2021</div>
+          <h4>Country Team Leader</h4>
+          <div class="tl-org">CIMMYT-Hyderabad, India &amp; National Maize Research Program (NMRP), Chitwan, Nepal</div>
+          <p class="tl-desc">Led end-line survey on impact of Nepalese corn hybrid (RH-10) adoption in rural communities across major corn-belt regions of Terai Nepal. Managed 8 enumerators, 2 provincial supervisors, and 4 part-time workers.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ EDUCATION ═══ -->
+  <!-- ============================= EDUCATION ============================= -->
   <section id="education">
-    <div class="sec-hd"><h2 class="sec-title">Education</h2><div class="sec-rule"></div></div>
-    <div class="edu-list">
-      <div class="edu-item">
-        <div class="edu-dc"><div class="edu-dot"></div><div class="edu-line"></div></div>
-        <div>
-          <div class="edu-deg">Ph.D. in Economics <span class="edu-yr">(In Progress)</span></div>
-          <div class="edu-school">Florida International University (FIU), Miami, FL</div>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">training</div>
+        <h2>Education</h2>
+      </div>
+      <div class="edu-grid reveal">
+        <div class="edu-item">
+          <div class="edu-years">In Progress</div>
+          <div>
+            <h4>Ph.D. in Economics</h4>
+            <div class="edu-school">Florida International University (FIU), Miami, FL</div>
+          </div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-years">2018–2020</div>
+          <div>
+            <h4>M.Sc. in Agricultural Economics &amp; Agribusiness Management</h4>
+            <div class="edu-school">Agriculture and Forestry University (AFU), Nepal</div>
+            <div class="edu-detail">OGPA: 3.69 / 4.00</div>
+          </div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-years">2013–2017</div>
+          <div>
+            <h4>B.Sc. in Agriculture</h4>
+            <div class="edu-school">Agriculture and Forestry University (AFU), Nepal</div>
+            <div class="edu-detail">OGPA: 3.92 / 4.00 (WES evaluated)</div>
+          </div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-years">2009–2011</div>
+          <div>
+            <h4>Intermediate +2, General Science</h4>
+            <div class="edu-school">Manimukunda College · Tribhuvan University (TU), Nepal</div>
+            <div class="edu-detail">1st Division with Distinction (80.6%)</div>
+          </div>
         </div>
       </div>
-      <div class="edu-item">
-        <div class="edu-dc"><div class="edu-dot past"></div><div class="edu-line"></div></div>
-        <div>
-          <div class="edu-deg">M.Sc. in Agricultural Economics &amp; Agribusiness Management <span class="edu-yr">· 2018–2020 · OGPA: 3.69/4.00</span></div>
-          <div class="edu-school">Agriculture and Forestry University (AFU), Nepal</div>
+
+      <div class="subhead reveal"><h3>Honors &amp; Awards</h3><span class="count">5</span></div>
+      <div class="badge-grid reveal">
+        <div class="badge"><span class="bicon">🏆</span><div><div class="btitle">Outstanding Oral Presentation</div><div class="bmeta">Summer Crop Workshop, Nepal Agricultural Research Council · July 2023</div></div></div>
+        <div class="badge"><span class="bicon">🌟</span><div><div class="btitle">Emerging Young Scientist</div><div class="bmeta">Department of Agriculture, Government of Nepal · April 2023</div></div></div>
+        <div class="badge"><span class="bicon">🥈</span><div><div class="btitle">1st Runner-Up: Technical Oral Presentation</div><div class="bmeta">Annual Meeting of Nepal Agricultural Economics Society, Kathmandu · 2023</div></div></div>
+        <div class="badge"><span class="bicon">💰</span><div><div class="btitle">Master's Thesis Research Funding ($2,000)</div><div class="bmeta">Nepal Seed and Fertilizer Project (NSAF), CIMMYT Nepal</div></div></div>
+        <div class="badge"><span class="bicon">🎓</span><div><div class="btitle">General Merit Scholarship</div><div class="bmeta">Ministry of Education, Nepal — for M.Sc. at Agriculture and Forestry University</div></div></div>
+      </div>
+
+      <div class="subhead reveal"><h3>Technical Skills</h3></div>
+      <div class="skills-grid reveal">
+        <div class="skill-group">
+          <div class="sg-title">Programming &amp; Statistical Software</div>
+          <div class="field-cloud"><span class="tag">Python</span><span class="tag">STATA</span><span class="tag">R</span><span class="tag">SPSS</span><span class="tag">SQL</span><span class="tag">MATLAB</span><span class="tag">GAMS</span><span class="tag">KoBoToolbox</span><span class="tag">QGIS</span></div>
+        </div>
+        <div class="skill-group">
+          <div class="sg-title">Machine Learning &amp; Data Science</div>
+          <div class="field-cloud"><span class="tag">Pandas / NumPy</span><span class="tag">Scikit-learn</span><span class="tag">XGBoost</span><span class="tag">Random Forest</span><span class="tag">LSTM Networks</span><span class="tag">Time Series</span><span class="tag">Logistic Regression</span></div>
+        </div>
+        <div class="skill-group">
+          <div class="sg-title">Econometrics &amp; Methods</div>
+          <div class="field-cloud"><span class="tag">Bayesian SVAR</span><span class="tag">IV / 2SLS</span><span class="tag">Diff-in-Diff</span><span class="tag">PSM</span><span class="tag">Stochastic Frontier</span><span class="tag">Logit / Probit</span><span class="tag">Monte Carlo</span></div>
+        </div>
+        <div class="skill-group">
+          <div class="sg-title">Visualization &amp; Reporting</div>
+          <div class="field-cloud"><span class="tag">Power BI</span><span class="tag">Tableau</span><span class="tag">Matplotlib</span><span class="tag">Scientific Writing</span><span class="tag">Report Writing</span><span class="tag">Poster Design</span></div>
         </div>
       </div>
-      <div class="edu-item">
-        <div class="edu-dc"><div class="edu-dot past"></div><div class="edu-line"></div></div>
-        <div>
-          <div class="edu-deg">B.Sc. in Agriculture <span class="edu-yr">· 2013–2017 · OGPA: 3.92/4.00 (WES evaluated)</span></div>
-          <div class="edu-school">Tribhuvan University (TU), Nepal</div>
-        </div>
+
+      <div class="subhead reveal"><h3>Professional Affiliations</h3></div>
+      <div class="badge-grid reveal">
+        <div class="badge"><span class="bicon">🌿</span><div><div class="btitle">Life-time Member — Society of Agricultural Scientists (SAS-Nepal)</div><div class="bmeta">From 9th Annual General Meeting · March 2022</div></div></div>
+        <div class="badge"><span class="bicon">📊</span><div><div class="btitle">Board Member — Nepal Agricultural Economics Society (NAES)</div><div class="bmeta">From January 2022</div></div></div>
+        <div class="badge"><span class="bicon">🪪</span><div><div class="btitle">Crop Inspector &amp; Seed Sampler</div><div class="bmeta">License No. 48/2075/75 — Govt. of Nepal, Seed Quality Control Center (SQCC) · June 2018 – Present</div></div></div>
       </div>
-      <div class="edu-item">
-        <div class="edu-dc"><div class="edu-dot past"></div></div>
-        <div>
-          <div class="edu-deg">Intermediate +2, General Science <span class="edu-yr">· 2009–2011 · 1st Division with Distinction (80.6%)</span></div>
-          <div class="edu-school">Manimukunda College, Nepal</div>
-        </div>
+
+      <div class="subhead reveal"><h3>Certifications</h3><span class="count">4</span></div>
+      <div class="badge-grid reveal">
+        <div class="badge"><span class="bicon">✅</span><div><div class="btitle">Google Data Analytics Professional Certificate</div><div class="bmeta">Coursera · 2022</div></div></div>
+        <div class="badge"><span class="bicon">✅</span><div><div class="btitle">IBM Data Science Professional Certificate</div><div class="bmeta">Coursera · 2022</div></div></div>
+        <div class="badge"><span class="bicon">✅</span><div><div class="btitle">Advanced SQL for Data Scientists</div><div class="bmeta">LinkedIn Learning</div></div></div>
+        <div class="badge"><span class="bicon">✅</span><div><div class="btitle">Impact Analyst — FBIP Capacity Building</div><div class="bmeta">Univ. of Western Australia / ACIAR · 2022</div></div></div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ HONORS & AWARDS ═══ -->
-  <section>
-    <div class="sec-hd"><h2 class="sec-title">Honors &amp; Awards</h2><div class="sec-rule"></div></div>
-    <div class="honors-list">
-      <div class="honor"><div class="hon-icon">🏆</div><div class="hon-text"><strong>Outstanding Oral Presentation</strong> — Summer Crop Workshop, Nepal Agricultural Research Council, July 2023</div></div>
-      <div class="honor"><div class="hon-icon">🌟</div><div class="hon-text"><strong>Emerging Young Scientist</strong> — Department of Agriculture, Government of Nepal, April 2023</div></div>
-      <div class="honor"><div class="hon-icon">🥈</div><div class="hon-text"><strong>1st Runner-Up: Technical Oral Presentation</strong> — Annual Meeting of Nepal Agricultural Economics Society, Kathmandu, 2023</div></div>
-      <div class="honor"><div class="hon-icon">💰</div><div class="hon-text"><strong>Master's Thesis Research Funding ($2,000)</strong> — Nepal Seed and Fertilizer Project (NSAF), CIMMYT Nepal</div></div>
-      <div class="honor"><div class="hon-icon">🎓</div><div class="hon-text"><strong>General Merit Scholarship</strong> — Ministry of Education, Nepal, for graduate study (M.Sc.) at Agriculture and Forestry University</div></div>
-    </div>
-  </section>
+  <div class="hydro-divider"><svg viewBox="0 0 1000 34" preserveAspectRatio="none"><path class="flow" d="M0,20 C 80,5 160,32 240,18 C 320,4 400,30 480,17 C 560,4 640,30 720,18 C 800,6 880,28 960,16 L1000,17"/></svg></div>
 
-  <!-- ═══ TECHNICAL SKILLS ═══ -->
-  <section>
-    <div class="sec-hd"><h2 class="sec-title">Technical Skills</h2><div class="sec-rule"></div></div>
-    <div class="skills-grid">
-      <div class="skill-block">
-        <div class="skill-title">Programming &amp; Statistical Software</div>
-        <div class="skill-tags">
-          <span class="s-tag">Python</span><span class="s-tag">STATA</span><span class="s-tag">R</span>
-          <span class="s-tag">SPSS</span><span class="s-tag">SQL</span><span class="s-tag">MATLAB</span>
-          <span class="s-tag">GAMS</span><span class="s-tag">KoBoToolbox</span><span class="s-tag">QGIS</span>
-        </div>
-      </div>
-      <div class="skill-block">
-        <div class="skill-title">Machine Learning &amp; Data Science</div>
-        <div class="skill-tags">
-          <span class="s-tag">Pandas / NumPy</span><span class="s-tag">Scikit-learn</span>
-          <span class="s-tag">XGBoost</span><span class="s-tag">Random Forest</span>
-          <span class="s-tag">LSTM Networks</span><span class="s-tag">Time Series</span>
-          <span class="s-tag">Logistic Regression</span>
-        </div>
-      </div>
-      <div class="skill-block">
-        <div class="skill-title">Econometrics &amp; Methods</div>
-        <div class="skill-tags">
-          <span class="s-tag">Bayesian SVAR</span><span class="s-tag">IV / 2SLS</span>
-          <span class="s-tag">Diff-in-Diff</span><span class="s-tag">PSM</span>
-          <span class="s-tag">Stochastic Frontier</span><span class="s-tag">Logit / Probit</span>
-          <span class="s-tag">Monte Carlo</span>
-        </div>
-      </div>
-      <div class="skill-block">
-        <div class="skill-title">Visualization &amp; Reporting</div>
-        <div class="skill-tags">
-          <span class="s-tag">Power BI</span><span class="s-tag">Tableau</span>
-          <span class="s-tag">Matplotlib</span><span class="s-tag">Scientific Writing</span>
-          <span class="s-tag">Report Writing</span><span class="s-tag">Poster Design</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ AFFILIATIONS ═══ -->
-  <section>
-    <div class="sec-hd"><h2 class="sec-title">Professional Affiliations</h2><div class="sec-rule"></div></div>
-    <div class="aff-list">
-      <div class="aff"><div class="aff-icon">🌿</div><div>Life-time Member — <strong>Society of Agricultural Scientists (SAS-Nepal)</strong>, from 9th Annual General Meeting, March 2022</div></div>
-      <div class="aff"><div class="aff-icon">📊</div><div>Board Member — <strong>Nepal Agricultural Economics Society (NAES)</strong>, from January 2022</div></div>
-      <div class="aff"><div class="aff-icon">🪪</div><div>Crop Inspector &amp; Seed Sampler (License No. 48/2075/75) — <strong>Government of Nepal, Seed Quality Control Center (SQCC)</strong>, June 2018 – Present</div></div>
-    </div>
-  </section>
-
-  <!-- ═══ CERTIFICATIONS ═══ -->
-  <section>
-    <div class="sec-hd"><h2 class="sec-title">Certifications</h2><div class="sec-rule"></div></div>
-    <div class="skills-grid">
-      <div class="skill-block">
-        <div class="skill-title">Google Data Analytics Professional Certificate</div>
-        <div class="skill-tags"><span class="s-tag">Coursera · 2022</span></div>
-      </div>
-      <div class="skill-block">
-        <div class="skill-title">IBM Data Science Professional Certificate</div>
-        <div class="skill-tags"><span class="s-tag">Coursera · 2022</span></div>
-      </div>
-      <div class="skill-block">
-        <div class="skill-title">Advanced SQL for Data Scientists</div>
-        <div class="skill-tags"><span class="s-tag">LinkedIn Learning</span></div>
-      </div>
-      <div class="skill-block">
-        <div class="skill-title">Impact Analyst — FBIP Capacity Building</div>
-        <div class="skill-tags"><span class="s-tag">Univ. of Western Australia / ACIAR · 2022</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ CONTACT ═══ -->
+  <!-- ============================= CONTACT ============================= -->
   <section id="contact">
-    <div class="sec-hd"><h2 class="sec-title">Contact</h2><div class="sec-rule"></div></div>
-    <div class="contact-grid">
-      <div class="c-card">
-        <div class="c-icon">📧</div>
-        <div><div class="c-label">FIU Email</div><div class="c-val"><a href="mailto:dgaut001@fiu.edu">dgaut001@fiu.edu</a></div></div>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">get in touch</div>
+        <h2>Contact</h2>
       </div>
-      <div class="c-card">
-        <div class="c-icon">✉️</div>
-        <div><div class="c-label">Gmail</div><div class="c-val"><a href="mailto:gautam.damodar.np@gmail.com">gautam.damodar.np@gmail.com</a></div></div>
-      </div>
-      <div class="c-card">
-        <div class="c-icon">📞</div>
-        <div><div class="c-label">Phone</div><div class="c-val">+1 (931) 259-7008</div></div>
-      </div>
-      <div class="c-card">
-        <div class="c-icon">📍</div>
-        <div><div class="c-label">Location</div><div class="c-val">Miami, Florida, USA</div></div>
-      </div>
-      <div class="c-card">
-        <div class="c-icon">🏛</div>
-        <div><div class="c-label">Department</div><div class="c-val">Dept. of Economics, Florida International University, Miami, FL</div></div>
-      </div>
-      <div class="c-card">
-        <div class="c-icon">🎓</div>
-        <div><div class="c-label">Google Scholar</div><div class="c-val"><a href="https://scholar.google.com/citations?user=o_zl-E8AAAAJ&hl=en" target="_blank">View Profile ↗</a></div></div>
+      <div class="contact-grid reveal">
+        <a class="contact-card" href="mailto:dgaut001@fiu.edu">
+          <div class="cicon">📧</div><div class="clabel">FIU Email</div><div class="cvalue">dgaut001@fiu.edu</div>
+        </a>
+        <a class="contact-card" href="mailto:gautam.damodar.np@gmail.com">
+          <div class="cicon">✉️</div><div class="clabel">Gmail</div><div class="cvalue">gautam.damodar.np@gmail.com</div>
+        </a>
+        <a class="contact-card" href="tel:+19312597008">
+          <div class="cicon">📞</div><div class="clabel">Phone</div><div class="cvalue">+1 (931) 259-7008</div>
+        </a>
+        <div class="contact-card">
+          <div class="cicon">📍</div><div class="clabel">Location</div><div class="cvalue">Miami, Florida, USA</div>
+        </div>
+        <div class="contact-card">
+          <div class="cicon">🏛</div><div class="clabel">Department</div><div class="cvalue">Dept. of Economics, Florida International University</div>
+        </div>
+        <a class="contact-card" href="https://scholar.google.com/citations?user=o_zl-E8AAAAJ&hl=en" target="_blank" rel="noopener">
+          <div class="cicon">🎓</div><div class="clabel">Google Scholar</div><div class="cvalue">View Profile ↗</div>
+        </a>
       </div>
     </div>
   </section>
-
-</div>
+</main>
 
 <footer>
-  &copy; 2025 Damodar Gautam &nbsp;·&nbsp; Department of Economics, Florida International University
+  <span>©</span> <span id="year"></span> Damodar Gautam · Department of Economics, Florida International University
 </footer>
 
 <script>
-  function tog(btn){
-    const abs=btn.closest('.card').querySelector('.abstract');
-    const lbl=btn.querySelector('span:first-child');
-    const open=abs.classList.toggle('open');
-    btn.classList.toggle('open',open);
-    lbl.textContent=open?'Hide Abstract':'Show Abstract';
-  }
-  function toggleTheme(){
-    const html=document.documentElement;
-    const isLight=html.getAttribute('data-theme')==='light';
-    const next=isLight?'dark':'light';
-    html.setAttribute('data-theme',next);
-    document.getElementById('ticon').textContent=next==='dark'?'☀️':'🌙';
-    document.getElementById('tlbl').textContent=next==='dark'?'Light':'Dark';
-    localStorage.setItem('theme',next);
-  }
-  (function(){
-    const saved=localStorage.getItem('theme');
-    if(saved==='light'){
-      document.documentElement.setAttribute('data-theme','light');
-      document.getElementById('ticon').textContent='🌙';
-      document.getElementById('tlbl').textContent='Dark';
-    }
-  })();
+// ---- theme toggle ----
+(function(){
+  const root = document.documentElement;
+  const btn = document.getElementById('themeBtn');
+  const stored = localStorage.getItem('dg-theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initial = stored || (prefersDark ? 'dark' : 'light');
+  if(initial === 'dark'){ root.setAttribute('data-theme','dark'); btn.textContent='☀'; } else { btn.textContent='◐'; }
+  btn.addEventListener('click', function(){
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    if(isDark){ root.removeAttribute('data-theme'); btn.textContent='◐'; localStorage.setItem('dg-theme','light'); }
+    else { root.setAttribute('data-theme','dark'); btn.textContent='☀'; localStorage.setItem('dg-theme','dark'); }
+  });
+})();
+
+// ---- mobile nav ----
+(function(){
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function(){ links.classList.toggle('open'); });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+})();
+
+// ---- scroll reveal ----
+(function(){
+  const items = document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){ items.forEach(i => i.classList.add('in-view')); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  items.forEach(i => io.observe(i));
+})();
+
+// ---- scrollspy ----
+(function(){
+  const sections = ['research','papers','experience','education','contact'].map(id => document.getElementById(id)).filter(Boolean);
+  const navA = document.querySelectorAll('nav.nav-links a');
+  if(!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        navA.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  sections.forEach(s => io.observe(s));
+})();
+
+document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
