@@ -215,7 +215,38 @@ section{padding:64px 0;}
 
 /* research field chips */
 .field-cloud{display:flex; flex-wrap:wrap; gap:9px;}
-.field-cloud .tag{padding:7px 14px; font-size:12.5px;}
+.field-cloud .tag{
+  padding:9px 18px 9px 14px;
+  font-size:12.5px;
+  font-weight:600;
+  border:1px solid transparent;
+  border-radius:999px;
+  background:var(--marsh-tint);
+  color:var(--marsh-deep);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  transition:transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+}
+.field-cloud .tag::before{
+  content:"";
+  width:6px; height:6px; border-radius:50%;
+  background:var(--marsh);
+  flex-shrink:0;
+}
+.field-cloud .tag:nth-child(3n+2){ background:var(--amber-tint); color:var(--amber); }
+.field-cloud .tag:nth-child(3n+2)::before{ background:var(--amber); }
+.field-cloud .tag:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow);
+  background:var(--marsh);
+  color:#FFFDF7;
+}
+.field-cloud .tag:nth-child(3n+2):hover{ background:var(--amber); color:#FFFDF7; }
+.field-cloud .tag:hover::before{ background:#FFFDF7; }
+html[data-theme="dark"] .field-cloud .tag:hover{ color:#0B1A15; }
+html[data-theme="dark"] .field-cloud .tag:nth-child(3n+2):hover{ color:#0B1A15; }
+html[data-theme="dark"] .field-cloud .tag:hover::before{ background:#0B1A15; }
 
 /* subsection label */
 .subhead{
@@ -228,10 +259,11 @@ section{padding:64px 0;}
 /* ============================= PAPER CARDS ============================= */
 .paper-list{display:flex; flex-direction:column; gap:14px;}
 .paper{
-  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
-  padding:22px 24px; transition:border-color .2s, box-shadow .2s;
+  background:var(--surface-2); border:1px solid var(--line); border-radius:var(--radius);
+  padding:22px 24px; transition:border-color .2s, box-shadow .2s, background .2s;
 }
-.paper:hover{border-color:var(--marsh); box-shadow:var(--shadow);}
+html[data-theme="dark"] .paper{ background:var(--surface); }
+.paper:hover{border-color:var(--marsh); box-shadow:var(--shadow); background:var(--surface);}
 .paper-top{display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap;}
 .paper-meta-row{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
 .status{
@@ -242,11 +274,11 @@ section{padding:64px 0;}
 .status.working{color:var(--marsh); border-color:var(--marsh);}
 .status.review{color:var(--amber); border-color:var(--amber); background:var(--amber-tint);}
 .status.prep{color:var(--ink-faint); border-style:dashed;}
-.paper-year{font-family:var(--mono); font-size:12px; color:var(--ink-faint);}
-.paper h4{font-size:1.15rem; margin-top:12px; line-height:1.35; font-weight:500;}
-.paper .authors{font-size:13.5px; color:var(--ink-soft); margin-top:6px;}
-.paper .authors em{font-style:italic; color:var(--ink); font-weight:500;}
-.paper .journal{font-family:var(--mono); font-size:12px; color:var(--ink-faint); margin-top:8px;}
+.paper-year{font-family:var(--mono); font-size:12px; color:var(--ink-soft);}
+.paper h4{font-size:1.15rem; margin-top:12px; line-height:1.35; font-weight:600; color:var(--ink);}
+.paper .authors{font-size:13.5px; color:var(--ink); margin-top:6px;}
+.paper .authors em{font-style:italic; color:var(--ink); font-weight:600;}
+.paper .journal{font-family:var(--mono); font-size:12px; color:var(--ink-soft); margin-top:8px;}
 .paper .field-tags{display:flex; gap:6px; flex-wrap:wrap; margin-top:12px;}
 .paper .field-tags .tag{font-size:11px; padding:3px 9px;}
 
@@ -261,7 +293,7 @@ details.abstract summary::before{
 }
 details.abstract[open] summary::before{transform:rotate(90deg);}
 details.abstract .abs-body{
-  margin-top:10px; font-size:13.8px; color:var(--ink-soft); line-height:1.65; max-width:74ch;
+  margin-top:10px; font-size:13.8px; color:var(--ink); line-height:1.65; max-width:74ch;
   padding-left:14px; border-left:2px solid var(--line-soft);
 }
 .paper-links{display:flex; gap:14px; flex-wrap:wrap; margin-top:14px;}
@@ -326,7 +358,10 @@ details.abstract .abs-body{
 .skills-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:26px;}
 @media (max-width:700px){.skills-grid{grid-template-columns:1fr;}}
 .skill-group .sg-title{font-family:var(--mono); font-size:11.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--marsh); margin-bottom:10px;}
-.skill-group .field-cloud .tag{background:var(--surface-2);}
+.skill-group .field-cloud .tag{background:var(--surface-2); color:var(--ink-soft);}
+.skill-group .field-cloud .tag::before{display:none;}
+.skill-group .field-cloud .tag:hover{background:var(--marsh); color:#FFFDF7; transform:translateY(-3px); box-shadow:var(--shadow);}
+html[data-theme="dark"] .skill-group .field-cloud .tag:hover{color:#0B1A15;}
 
 /* ============================= CONTACT ============================= */
 .contact-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
@@ -387,7 +422,7 @@ footer span{color:var(--marsh);}
         <div class="hero-links">
           <a class="pill-link primary" href="assets/cv.pdf">↓ Curriculum Vitae</a>
           <a class="pill-link" href="https://scholar.google.com/citations?user=o_zl-E8AAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar ↗</a>
-          <a class="pill-link" href="mailto:dgaut010@fiu.edu">FIU Email</a>
+          <a class="pill-link" href="mailto:dgaut001@fiu.edu">FIU Email</a>
           <a class="pill-link" href="mailto:gautam.damodar.np@gmail.com">Gmail</a>
         </div>
       </div>
@@ -430,7 +465,7 @@ footer span{color:var(--marsh);}
   </section>
 
   <!-- ============================= PAPERS ============================= -->
-  <section id="Peer-reviewed Journal Articles">
+  <section id="papers">
     <div class="wrap">
       <div class="section-head reveal">
         <div class="eyebrow">Peer-reviewed Journal Articles</div>
@@ -657,7 +692,13 @@ footer span{color:var(--marsh);}
       </div>
       <div class="timeline reveal">
         <div class="tl-item">
-          <div class="tl-date">May 2018 – Present</div>
+          <div class="tl-date">August 2025 – Present</div>
+          <h4>Graduate Research Assistant</h4>
+          <div class="tl-org">Department of Economics, Florida International University (FIU)</div>
+          <p class="tl-desc">Support faculty-led research on environmental and development economics, including data collection and cleaning, econometric modeling, and literature review. Assist with grant-funded projects, contribute to manuscript preparation and journal submissions, and provide teaching support for graduate coursework.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">May 2018 – September 2023</div>
           <h4>Research Officer</h4>
           <div class="tl-org">Government of Nepal, Nepal Agricultural Research Council (NARC) &amp; Nepal Seed and Fertilizer (NSAF) Project, CIMMYT</div>
           <p class="tl-desc">Conduct, supervise, document, and present socio-economic research in production economics, technology adoption, efficiency measures, natural resource economics, and poverty reduction.</p>
@@ -725,8 +766,9 @@ footer span{color:var(--marsh);}
         </div>
       </div>
 
-      <div class="subhead reveal"><h3>Honors &amp; Awards</h3><span class="count">5</span></div>
+      <div class="subhead reveal"><h3>Honors &amp; Awards</h3><span class="count">6</span></div>
       <div class="badge-grid reveal">
+        <div class="badge"><span class="bicon">🎖️</span><div><div class="btitle">Presidential Fellow — 2025</div><div class="bmeta">Awarded by University Graduate School, Florida International University</div></div></div>
         <div class="badge"><span class="bicon">🏆</span><div><div class="btitle">Outstanding Oral Presentation</div><div class="bmeta">Summer Crop Workshop, Nepal Agricultural Research Council · July 2023</div></div></div>
         <div class="badge"><span class="bicon">🌟</span><div><div class="btitle">Emerging Young Scientist</div><div class="bmeta">Department of Agriculture, Government of Nepal · April 2023</div></div></div>
         <div class="badge"><span class="bicon">🥈</span><div><div class="btitle">1st Runner-Up: Technical Oral Presentation</div><div class="bmeta">Annual Meeting of Nepal Agricultural Economics Society, Kathmandu · 2023</div></div></div>
@@ -781,7 +823,7 @@ footer span{color:var(--marsh);}
         <h2>Contact</h2>
       </div>
       <div class="contact-grid reveal">
-        <a class="contact-card" href="mailto:dgaut001@fiu.edu">
+        <a class="contact-card" href="mailto:dgaut010@fiu.edu">
           <div class="cicon">📧</div><div class="clabel">FIU Email</div><div class="cvalue">dgaut001@fiu.edu</div>
         </a>
         <a class="contact-card" href="mailto:gautam.damodar.np@gmail.com">
